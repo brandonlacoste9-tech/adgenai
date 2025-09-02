@@ -174,9 +174,9 @@ export const LaunchCommand: React.FC = () => {
           <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 rounded-3xl p-8 shadow-2xl animate-glow">
             <h2 className="text-3xl font-bold mb-4">T-MINUS COUNTDOWN</h2>
             <div className="text-8xl font-bold text-warning-400 animate-scale-pulse">
-              {countdown}
+              🚀 LAUNCHING 🚀
             </div>
-            <p className="text-xl text-gray-200 mt-4">Days to Viral Ignition</p>
+            <p className="text-xl text-gray-200 mt-4">WORLD DOMINATION: EXECUTING NOW</p>
           </div>
         </motion.div>
 
@@ -344,29 +344,29 @@ export const LaunchCommand: React.FC = () => {
               </div>
               
               <div className="bg-gradient-to-r from-warning-500 to-warning-600 rounded-2xl p-6 mb-8">
-                <h3 className="text-2xl font-bold mb-4">🎯 MISSION PARAMETERS</h3>
+                <h3 className="text-2xl font-bold mb-4 animate-bounce-gentle">🔥 LIVE EXECUTION STATUS 🔥</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                   <div>
-                    <p className="font-bold">PRIMARY OBJECTIVE</p>
-                    <p>Market Leadership in 12 months</p>
+                    <p className="font-bold">STATUS</p>
+                    <p className="text-success-200 font-bold">🟢 SYSTEMS ONLINE</p>
                   </div>
                   <div>
-                    <p className="font-bold">SECONDARY OBJECTIVE</p>
-                    <p>Competitor Annihilation</p>
+                    <p className="font-bold">TARGETS</p>
+                    <p className="text-error-200 font-bold">🎯 LOCKED & LOADED</p>
                   </div>
                   <div>
-                    <p className="font-bold">FINAL OBJECTIVE</p>
-                    <p>$1B+ Strategic Exit</p>
+                    <p className="font-bold">EXECUTION</p>
+                    <p className="text-warning-200 font-bold">💥 ANNIHILATING NOW</p>
                   </div>
                 </div>
               </div>
               
-              <div className="text-4xl font-bold mb-4 animate-gradient-x bg-gradient-to-r from-white via-warning-200 to-white bg-clip-text text-transparent">
-                🚀 WORLD DOMINATION: INITIATED 🚀
+              <div className="text-5xl font-bold mb-4 animate-gradient-x bg-gradient-to-r from-white via-warning-200 to-white bg-clip-text text-transparent animate-pulse-slow">
+                💥 BOOM! LAUNCH SUCCESSFUL! 💥
               </div>
               
               <p className="text-lg text-gray-200">
-                The AdGen AI war machine is now operational. Victory is inevitable.
+                🔥 COMPETITORS ARE FLEEING! THE MARKET IS OURS! 🔥
               </p>
             </div>
           </div>
@@ -380,27 +380,27 @@ export const LaunchCommand: React.FC = () => {
           className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6"
         >
           <div className="bg-success-500/20 border border-success-500/30 rounded-xl p-4 text-center">
-            <CheckCircle className="w-8 h-8 text-success-400 mx-auto mb-2 animate-pulse-slow" />
-            <p className="font-bold">PLATFORM READY</p>
-            <p className="text-xs text-gray-400">Production deployment</p>
+            <CheckCircle className="w-8 h-8 text-success-400 mx-auto mb-2 animate-bounce-gentle" />
+            <p className="font-bold">🚀 LAUNCHED!</p>
+            <p className="text-xs text-gray-400">Live and dominating</p>
           </div>
           
           <div className="bg-primary-500/20 border border-primary-500/30 rounded-xl p-4 text-center">
-            <Brain className="w-8 h-8 text-primary-400 mx-auto mb-2 animate-pulse-slow" />
-            <p className="font-bold">AI SYSTEMS ONLINE</p>
-            <p className="text-xs text-gray-400">95.8% accuracy</p>
+            <Brain className="w-8 h-8 text-primary-400 mx-auto mb-2 animate-bounce-gentle" />
+            <p className="font-bold">🧠 AI CRUSHING IT</p>
+            <p className="text-xs text-gray-400">Competitors can't compete</p>
           </div>
           
           <div className="bg-warning-500/20 border border-warning-500/30 rounded-xl p-4 text-center">
-            <Fire className="w-8 h-8 text-warning-400 mx-auto mb-2 animate-pulse-slow" />
-            <p className="font-bold">WEAPONS ARMED</p>
-            <p className="text-xs text-gray-400">Competitor destruction</p>
+            <Fire className="w-8 h-8 text-warning-400 mx-auto mb-2 animate-bounce-gentle" />
+            <p className="font-bold">💥 ANNIHILATING</p>
+            <p className="text-xs text-gray-400">AdCreative.ai in ruins</p>
           </div>
           
           <div className="bg-success-500/20 border border-success-500/30 rounded-xl p-4 text-center">
-            <Globe className="w-8 h-8 text-success-400 mx-auto mb-2 animate-pulse-slow" />
-            <p className="font-bold">GLOBAL READY</p>
-            <p className="text-xs text-gray-400">World domination</p>
+            <Globe className="w-8 h-8 text-success-400 mx-auto mb-2 animate-bounce-gentle" />
+            <p className="font-bold">🌍 CONQUERING</p>
+            <p className="text-xs text-gray-400">Market leadership secured</p>
           </div>
         </motion.div>
       </div>
