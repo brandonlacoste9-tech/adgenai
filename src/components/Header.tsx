@@ -51,6 +51,9 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
             <Link to="/share/adgenai" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Share
             </Link>
+            <Link to="/launch" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
+              Launch
+            </Link>
             <button className="btn-primary animate-glow">
               <a href="/migration" className="block">Start Free Migration</a>
             </button>

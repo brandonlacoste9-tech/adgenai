@@ -18,6 +18,7 @@ import { CMSDashboard } from './components/CMSDashboard';
 import { PerformancePredictionDemo } from './components/PerformancePredictionDemo';
 import { SharePressKit } from './pages/SharePressKit';
 import { Footer } from './components/Footer';
+import { LaunchCommand } from './pages/LaunchCommand';
 
 const HomePage: React.FC = () => (
   <>
@@ -51,6 +52,7 @@ function App() {
             <Route path="/demo" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><PerformancePredictionDemo /></div>} />
             <Route path="/share/press-kit" element={<div className="min-h-screen"><SharePressKit /></div>} />
           </Routes>
+            <Route path="/launch" element={<LaunchCommand />} />
         </main>
         <Footer />
       </div>
