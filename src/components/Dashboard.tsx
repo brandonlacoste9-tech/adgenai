@@ -179,7 +179,7 @@ export const Dashboard: React.FC = () => {
               <BarChart3 className="w-5 h-5" />
               <span>Analytics</span>
             </button>
-            <button className="btn-primary flex items-center space-x-2 group">
+            <button className="btn-primary flex items-center space-x-2 group animate-glow">
               <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
               <span>Generate New Ad</span>
             </button>
@@ -324,18 +324,18 @@ export const Dashboard: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="card group cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300 relative overflow-hidden"
+                  className="card group cursor-pointer hover:shadow-3xl hover:scale-110 transition-all duration-500 relative overflow-hidden shimmer"
                   onClick={() => setSelectedAd(ad)}
                 >
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-success-500/5 to-warning-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
                   <div className="relative z-10">
                     <div className="relative mb-6">
                       <img
                         src={ad.imageUrl}
                         alt={ad.title}
-                        className="w-full h-48 object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-48 object-cover rounded-xl group-hover:scale-110 transition-transform duration-500 group-hover:shadow-2xl"
                       />
                       <div className="absolute top-3 right-3 flex space-x-2">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold shadow-lg ${
@@ -343,12 +343,12 @@ export const Dashboard: React.FC = () => {
                           ad.status === 'paused' ? 'bg-warning-500 text-white' :
                           ad.status === 'completed' ? 'bg-primary-500 text-white' :
                           'bg-gray-500 text-white'
-                        }`}>
+                        } animate-pulse-slow`}>
                           {ad.status}
                         </span>
                       </div>
                       <div className="absolute bottom-3 left-3">
-                        <span className="bg-black/70 text-white px-2 py-1 rounded text-xs font-medium">
+                        <span className="bg-black/80 text-white px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
                           {ad.platform}
                         </span>
                       </div>
@@ -364,17 +364,19 @@ export const Dashboard: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-700">Performance Score</span>
                         <div className="flex items-center space-x-3">
-                          <div className="w-20 bg-gray-200 rounded-full h-2">
+                          <div className="w-20 bg-gray-200 rounded-full h-3 overflow-hidden">
                             <div
-                              className={`h-2 rounded-full transition-all duration-500 ${
-                                ad.performanceScore > 85 ? 'bg-gradient-to-r from-success-500 to-success-600' :
-                                ad.performanceScore > 70 ? 'bg-gradient-to-r from-primary-500 to-primary-600' :
-                                'bg-gradient-to-r from-warning-500 to-warning-600'
+                              className={`h-3 rounded-full transition-all duration-1000 relative overflow-hidden ${
+                                ad.performanceScore > 85 ? 'bg-gradient-to-r from-success-400 via-success-500 to-success-600' :
+                                ad.performanceScore > 70 ? 'bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600' :
+                                'bg-gradient-to-r from-warning-400 via-warning-500 to-warning-600'
                               }`}
                               style={{ width: `${ad.performanceScore}%` }}
-                            ></div>
+                            >
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                            </div>
                           </div>
-                          <span className="text-sm font-bold text-gray-900 min-w-[2rem]">{ad.performanceScore}</span>
+                          <span className="text-sm font-bold text-gray-900 min-w-[2rem] animate-scale-pulse">{ad.performanceScore}</span>
                         </div>
                       </div>
 

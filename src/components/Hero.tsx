@@ -33,7 +33,7 @@ export const Hero: React.FC = () => {
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-900 mb-8 leading-tight text-shadow">
               The Full-Stack
-              <span className="gradient-text block animate-pulse-slow">
+              <span className="gradient-text block animate-gradient-x text-glow">
                 Marketing Brain
               </span>
             </h1>
@@ -53,13 +53,13 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
           >
-            <button className="btn-primary text-lg px-10 py-5 group">
+            <button className="btn-primary text-lg px-10 py-5 group animate-glow">
               <a href="/migration" className="flex items-center space-x-2">
                 <span>Start Free Migration</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </button>
-            <button className="btn-secondary text-lg px-10 py-5 group">
+            <button className="btn-secondary text-lg px-10 py-5 group shimmer">
               <a href="/autopsy/templated-campaign-fatigue" className="flex items-center space-x-2">
                 <Play className="w-5 h-5" />
                 <span>Watch AI Autopsy</span>
@@ -75,8 +75,8 @@ export const Hero: React.FC = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16"
           >
             {stats.map((stat, index) => (
-              <div key={index} className="glass-card p-6 text-center group hover:scale-105 transition-all duration-300">
-                <div className="text-3xl font-bold gradient-text mb-2">{stat.value}</div>
+              <div key={index} className="glass-card p-6 text-center group hover:scale-110 transition-all duration-500 animate-bounce-gentle" style={{ animationDelay: `${index * 0.2}s` }}>
+                <div className="text-3xl font-bold gradient-text mb-2 animate-scale-pulse">{stat.value}</div>
                 <div className="text-lg font-semibold text-gray-900 mb-1">{stat.label}</div>
                 <div className="text-sm text-gray-600">{stat.description}</div>
               </div>
@@ -91,7 +91,7 @@ export const Hero: React.FC = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
           >
             <div className="flex flex-col items-center text-center group">
-              <div className="bg-gradient-to-br from-success-100 to-success-200 p-6 rounded-2xl mb-6 group-hover:scale-110 group-hover:shadow-glow transition-all duration-300">
+              <div className="bg-gradient-to-br from-success-100 to-success-200 p-6 rounded-2xl mb-6 group-hover:scale-125 group-hover:shadow-glow transition-all duration-500 success-glow animate-bounce-gentle">
                 <Shield className="w-10 h-10 text-success-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Fraud Annihilation</h3>
@@ -102,7 +102,7 @@ export const Hero: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center text-center group">
-              <div className="bg-gradient-to-br from-primary-100 to-primary-200 p-6 rounded-2xl mb-6 group-hover:scale-110 group-hover:shadow-glow transition-all duration-300">
+              <div className="bg-gradient-to-br from-primary-100 to-primary-200 p-6 rounded-2xl mb-6 group-hover:scale-125 group-hover:shadow-glow transition-all duration-500 neon-glow animate-bounce-gentle" style={{ animationDelay: '0.3s' }}>
                 <TrendingUp className="w-10 h-10 text-primary-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Performance Prediction</h3>
@@ -113,7 +113,7 @@ export const Hero: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center text-center group">
-              <div className="bg-gradient-to-br from-warning-100 to-warning-200 p-6 rounded-2xl mb-6 group-hover:scale-110 group-hover:shadow-glow transition-all duration-300">
+              <div className="bg-gradient-to-br from-warning-100 to-warning-200 p-6 rounded-2xl mb-6 group-hover:scale-125 group-hover:shadow-glow transition-all duration-500 warning-glow animate-bounce-gentle" style={{ animationDelay: '0.6s' }}>
                 <Target className="w-10 h-10 text-warning-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Attribution Intelligence</h3>

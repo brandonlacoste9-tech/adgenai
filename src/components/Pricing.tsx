@@ -161,16 +161,16 @@ export const Pricing: React.FC = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`relative rounded-3xl border-2 p-8 transition-all duration-300 hover:shadow-2xl ${
                   plan.popular
-                    ? 'border-primary-500 shadow-xl scale-105 bg-gradient-to-br from-white to-primary-50'
-                    : 'border-gray-200 shadow-lg bg-white hover:border-primary-300'
+                    ? 'border-primary-500 shadow-3xl scale-105 bg-gradient-to-br from-white to-primary-50 neon-glow animate-glow'
+                    : 'border-gray-200 shadow-lg bg-white hover:border-primary-300 hover:shadow-3xl hover:scale-105'
                 }`}
               >
                 {plan.badge && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className={`px-6 py-2 rounded-full text-sm font-bold shadow-lg ${
+                    <span className={`px-6 py-2 rounded-full text-sm font-bold shadow-2xl animate-bounce-gentle ${
                       plan.popular 
-                        ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
-                        : 'bg-gradient-to-r from-warning-500 to-warning-600 text-white'
+                        ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white neon-glow'
+                        : 'bg-gradient-to-r from-warning-500 to-warning-600 text-white warning-glow'
                     }`}>
                       {plan.badge}
                     </span>
@@ -178,15 +178,15 @@ export const Pricing: React.FC = () => {
                 )}
 
                 <div className="text-center mb-8">
-                  <div className={`inline-flex p-4 rounded-2xl mb-6 ${plan.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`inline-flex p-4 rounded-2xl mb-6 ${plan.bgColor} group-hover:scale-125 transition-transform duration-500 animate-scale-pulse`}>
                     <Icon className={`w-10 h-10 ${plan.iconColor}`} />
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{plan.name}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary-600 transition-colors duration-300">{plan.name}</h3>
                   
                   <div className="mb-4">
                     <div className="flex items-baseline justify-center space-x-2">
-                      <span className="text-5xl font-bold text-gray-900">{plan.price}</span>
+                      <span className="text-5xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">{plan.price}</span>
                       {plan.originalPrice && (
                         <span className="text-xl text-gray-500 line-through">{plan.originalPrice}</span>
                       )}

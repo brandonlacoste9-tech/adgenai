@@ -80,7 +80,7 @@ export const CompetitorComparison: React.FC = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Feature</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-primary-600">AdGen AI</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-primary-600 animate-gradient-x">AdGen AI</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">AdCreative.ai</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">Creatopy</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">Smartly.io</th>
@@ -88,14 +88,14 @@ export const CompetitorComparison: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {features.map((row, index) => (
-                  <tr key={index} className="hover:bg-gray-50 transition-colors">
+                  <tr key={index} className="hover:bg-gradient-to-r hover:from-primary-50/50 hover:to-transparent transition-all duration-300 hover:scale-105">
                     <td className="px-6 py-4 text-sm font-medium text-gray-900">
                       {row.feature}
                     </td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex items-center justify-center space-x-2">
                         {getIcon(row.adgenAi)}
-                        <span className="text-sm font-medium text-primary-600">
+                        <span className="text-sm font-medium text-primary-600 animate-pulse-slow">
                           {row.adgenAi.replace(/[✓✗⚠]/g, '').trim()}
                         </span>
                       </div>

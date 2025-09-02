@@ -84,22 +84,22 @@ export const CheckoutButton: React.FC<CheckoutButtonProps> = ({
         disabled={loading || disabled}
         className={`${className} ${
           loading || disabled ? 'opacity-50 cursor-not-allowed' : ''
-        } relative overflow-hidden group`}
+        } relative overflow-hidden group shimmer`}
       >
         {loading ? (
           <div className="flex items-center justify-center space-x-2">
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="w-4 h-4 animate-spin text-white" />
             <span>Processing...</span>
           </div>
         ) : (
           <div className="flex items-center justify-center space-x-2">
-            <CreditCard className="w-4 h-4" />
+            <CreditCard className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
             <span>{children}</span>
           </div>
         )}
         
         {/* Shimmer effect on hover */}
-        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       </button>
       
       {error && (

@@ -53,13 +53,17 @@ export const Testimonials: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-3xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 relative overflow-hidden shimmer"
             >
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-success-500/5 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className="relative z-10">
               <div className="flex items-center mb-6">
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover mr-4"
+                  className="w-12 h-12 rounded-full object-cover mr-4 hover:scale-110 transition-transform duration-300 shadow-lg"
                 />
                 <div>
                   <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
@@ -70,11 +74,11 @@ export const Testimonials: React.FC = () => {
 
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current animate-bounce-gentle" style={{ animationDelay: `${i * 0.1}s` }} />
                 ))}
               </div>
 
-              <Quote className="w-8 h-8 text-gray-300 mb-4" />
+              <Quote className="w-8 h-8 text-gray-300 mb-4 animate-float" />
               
               <blockquote className="text-gray-700 mb-6 leading-relaxed">
                 "{testimonial.quote}"
@@ -87,8 +91,9 @@ export const Testimonials: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center text-sm mt-2">
                   <span className="text-gray-500">Result:</span>
-                  <span className="font-semibold text-success-600">{testimonial.improvement}</span>
+                  <span className="font-semibold text-success-600 animate-pulse-slow">{testimonial.improvement}</span>
                 </div>
+              </div>
               </div>
             </motion.div>
           ))}

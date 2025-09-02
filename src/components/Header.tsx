@@ -13,32 +13,32 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="bg-primary-600 p-2 rounded-lg group-hover:bg-primary-700 transition-colors">
+            <div className="bg-primary-600 p-2 rounded-lg group-hover:bg-primary-700 transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow animate-scale-pulse">
               <Zap className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">AdGen AI</span>
+            <span className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">AdGen AI</span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/dashboard" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+            <Link to="/dashboard" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Dashboard
             </Link>
-            <Link to="/demo" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+            <Link to="/demo" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               AI Demo
             </Link>
-            <Link to="/autopsy/templated-campaign-fatigue" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+            <Link to="/autopsy/templated-campaign-fatigue" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               AI Ad Autopsy
             </Link>
-            <Link to="/cms" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+            <Link to="/cms" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Content
             </Link>
-            <Link to="/agency-partners" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+            <Link to="/agency-partners" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Partners
             </Link>
-            <Link to="/pricing" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+            <Link to="/pricing" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Pricing
             </Link>
-            <button className="btn-primary">
+            <button className="btn-primary animate-glow">
               <a href="/migration" className="block">Start Free Migration</a>
             </button>
           </nav>

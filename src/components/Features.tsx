@@ -102,27 +102,32 @@ export const Features: React.FC = () => {
                 className="card group hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden"
               >
                 {/* Hover gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                
+                {/* Animated border */}
+                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${feature.gradient} opacity-20 blur-sm animate-pulse-slow`}></div>
+                </div>
                 
                 <div className="relative z-10">
-                  <div className={`inline-flex p-4 rounded-2xl mb-6 border-2 ${getColorClasses(feature.color)} group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
+                  <div className={`inline-flex p-4 rounded-2xl mb-6 border-2 ${getColorClasses(feature.color)} group-hover:scale-125 group-hover:shadow-2xl transition-all duration-500 animate-bounce-gentle`}>
                     <Icon className="w-8 h-8" />
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary-600 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary-600 transition-colors duration-500 text-shadow">
                     {feature.title}
                   </h3>
                   
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                     {feature.description}
                   </p>
                   
                   <div className="pt-4 border-t border-gray-100">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold text-primary-600 bg-primary-50 px-3 py-1 rounded-full">
+                      <span className="text-sm font-bold text-primary-600 bg-primary-50 px-3 py-1 rounded-full group-hover:bg-primary-100 group-hover:scale-110 transition-all duration-300 animate-pulse-slow">
                         {feature.stats}
                       </span>
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 group-hover:translate-x-2 group-hover:scale-125 transition-all duration-500" />
                     </div>
                   </div>
                 </div>

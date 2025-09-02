@@ -9,23 +9,23 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
-              <div className="bg-primary-600 p-2 rounded-lg">
+              <div className="bg-primary-600 p-2 rounded-lg animate-scale-pulse">
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold">AdGen AI</span>
+              <span className="text-xl font-bold gradient-text">AdGen AI</span>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               The Full-Stack Marketing Brain for performance marketers who demand 
               results, not just pretty pictures. Built for ROI optimization.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-125 hover:shadow-glow">
                 <Twitter className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-125 hover:shadow-glow">
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-125 hover:shadow-glow">
                 <Github className="w-6 h-6" />
               </a>
             </div>

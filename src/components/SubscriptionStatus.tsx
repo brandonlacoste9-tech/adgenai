@@ -100,15 +100,15 @@ export const SubscriptionStatus: React.FC = () => {
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
-          <div className="bg-white/80 p-3 rounded-xl shadow-sm">
+          <div className="bg-white/90 p-3 rounded-xl shadow-lg animate-scale-pulse backdrop-blur-sm">
             {getPlanIcon()}
           </div>
           <div>
             <div className="flex items-center space-x-3 mb-1">
-              <h3 className="text-2xl font-bold text-gray-900 capitalize">
+              <h3 className="text-2xl font-bold text-gray-900 capitalize text-shadow">
                 {subscription.plan_type} Plan
               </h3>
-              {isPaid && <Star className="w-5 h-5 text-yellow-500 fill-current" />}
+              {isPaid && <Star className="w-5 h-5 text-yellow-500 fill-current animate-bounce-gentle" />}
             </div>
             <div className="flex items-center space-x-2">
               {getStatusIcon()}
@@ -116,7 +116,7 @@ export const SubscriptionStatus: React.FC = () => {
                 {subscription.subscription_status}
               </span>
               {subscription.subscription_status === 'active' && (
-                <span className="text-xs bg-success-200 text-success-800 px-2 py-1 rounded-full">
+                <span className="text-xs bg-success-200 text-success-800 px-2 py-1 rounded-full animate-pulse-slow">
                   Active
                 </span>
               )}
@@ -142,7 +142,7 @@ export const SubscriptionStatus: React.FC = () => {
       {/* Plan Features */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {getPlanFeatures().map((feature, index) => (
-          <div key={index} className="bg-white/60 backdrop-blur-sm rounded-lg p-3 text-center">
+          <div key={index} className="bg-white/70 backdrop-blur-md rounded-lg p-3 text-center hover:bg-white/80 hover:scale-105 transition-all duration-300 border border-white/20">
             <p className="text-xs text-gray-700 font-medium">{feature}</p>
           </div>
         ))}

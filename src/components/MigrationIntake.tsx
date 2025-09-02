@@ -395,19 +395,19 @@ export const MigrationIntake: React.FC = () => {
         <motion.button
           type="submit"
           disabled={submitting}
-          className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-500 shadow-lg hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden shimmer animate-glow"
           whileHover={{ scale: submitting ? 1 : 1.02 }}
           whileTap={{ scale: submitting ? 1 : 0.98 }}
         >
           {submitting ? (
             <div className="flex items-center justify-center space-x-2">
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin shadow-lg"></div>
               <span>Submitting...</span>
             </div>
           ) : (
             <div className="flex items-center justify-center space-x-2">
               <span>Start My Free Migration</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </div>
           )}
         </motion.button>

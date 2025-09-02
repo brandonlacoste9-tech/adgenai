@@ -322,29 +322,32 @@ export const PerformancePredictionDemo: React.FC = () => {
 
           {/* Demo CTA */}
           {!prediction && !fraudAnalysis && (
-            <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white text-center">
-              <Brain className="w-16 h-16 mx-auto mb-4" />
+            <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white text-center relative overflow-hidden animate-glow">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent animate-gradient-x"></div>
+              <div className="relative z-10">
+              <Brain className="w-16 h-16 mx-auto mb-4 animate-float" />
               <h3 className="text-2xl font-bold mb-4">See the AI in Action</h3>
               <p className="text-lg opacity-90 mb-6">
                 Enter your creative details above and click "Analyze Creative" to see 
                 real-time performance prediction and fraud risk assessment.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <TrendingUp className="w-8 h-8 mx-auto mb-2" />
+                <div className="bg-white/15 backdrop-blur-md rounded-lg p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                  <TrendingUp className="w-8 h-8 mx-auto mb-2 animate-bounce-gentle" />
                   <p className="font-semibold">Performance Score</p>
                   <p className="text-sm opacity-90">0-100 prediction accuracy</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <Shield className="w-8 h-8 mx-auto mb-2" />
+                <div className="bg-white/15 backdrop-blur-md rounded-lg p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                  <Shield className="w-8 h-8 mx-auto mb-2 animate-bounce-gentle" style={{ animationDelay: '0.2s' }} />
                   <p className="font-semibold">Fraud Protection</p>
                   <p className="text-sm opacity-90">Real-time risk assessment</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <Target className="w-8 h-8 mx-auto mb-2" />
+                <div className="bg-white/15 backdrop-blur-md rounded-lg p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                  <Target className="w-8 h-8 mx-auto mb-2 animate-bounce-gentle" style={{ animationDelay: '0.4s' }} />
                   <p className="font-semibold">ROI Optimization</p>
                   <p className="text-sm opacity-90">Actionable recommendations</p>
                 </div>
+              </div>
               </div>
             </div>
           )}
