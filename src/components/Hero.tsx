@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, TrendingUp, Target, Zap, ArrowRight, Play } from 'lucide-react';
+import { Shield, TrendingUp, Target, Zap, ArrowRight, Play, CreditCard } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const stats = [
