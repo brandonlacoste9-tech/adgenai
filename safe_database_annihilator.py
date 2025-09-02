@@ -61,8 +61,8 @@ def check_auth_users_exists(cur):
 
 def ensure_extensions(cur, apply):
     """Ensure required PostgreSQL extensions."""
-    log("Ensuring required extensions")
-    extensions = ["pg_trgm", "unaccent"]
+    # Both unaccent and pg_trgm are needed for full-text search
+    for ext in ("unaccent", "pg_trgm"):
     for ext in extensions:
         run(cur, sql.SQL("CREATE EXTENSION IF NOT EXISTS {}").format(sql.Identifier(ext)), apply=apply)
 
