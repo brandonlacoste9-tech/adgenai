@@ -18,6 +18,7 @@ import { CMSDashboard } from './components/CMSDashboard';
 import { PerformancePredictionDemo } from './components/PerformancePredictionDemo';
 import { ViralGrowthEngine } from './components/ViralGrowthEngine';
 import { CommunityHub } from './components/CommunityHub';
+import { AdvancedMLDashboard } from './components/AdvancedMLDashboard';
 import { Footer } from './components/Footer';
 
 const HomePage: React.FC = () => (
@@ -52,6 +53,7 @@ function App() {
             <Route path="/demo" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><PerformancePredictionDemo /></div>} />
             <Route path="/viral" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><ViralGrowthEngine /></div>} />
             <Route path="/community" element={<CommunityHub />} />
+            <Route path="/ml-dashboard" element={<AdvancedMLDashboard />} />
           </Routes>
         </main>
         <Footer />
