@@ -32,6 +32,9 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
             <Link to="/cms" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Content
             </Link>
+            <Link to="/analytics" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
+              Analytics
+            </Link>
             <Link to="/agency-partners" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Partners
             </Link>

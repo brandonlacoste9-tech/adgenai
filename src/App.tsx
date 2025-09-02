@@ -7,6 +7,8 @@ import { CompetitorComparison } from './components/CompetitorComparison';
 import { Testimonials } from './components/Testimonials';
 import { Pricing } from './components/Pricing';
 import { Dashboard } from './components/Dashboard';
+import { EnhancedDashboard } from './components/EnhancedDashboard';
+import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { ComparisonPage } from './pages/ComparisonPage';
 import { AutopsyPage } from './pages/AutopsyPage';
 import { MigrationIntake } from './components/MigrationIntake';
@@ -36,7 +38,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<EnhancedDashboard />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/compare/:slug" element={<ComparisonPage />} />
             <Route path="/autopsy/:slug" element={<AutopsyPage />} />
@@ -44,6 +46,7 @@ function App() {
             <Route path="/agency-partners" element={<div className="min-h-screen bg-gray-50 pt-20"><AgencyPartnerOnePager /></div>} />
             <Route path="/agency-dashboard" element={<AgencyManagementDashboard />} />
             <Route path="/cms" element={<CMSDashboard />} />
+            <Route path="/analytics" element={<AnalyticsDashboard />} />
             <Route path="/demo" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><PerformancePredictionDemo /></div>} />
           </Routes>
         </main>
