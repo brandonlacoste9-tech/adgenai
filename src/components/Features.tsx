@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, TrendingUp, Target, Zap, Users, BarChart3, Brain, Crosshair, ArrowRight } from 'lucide-react';
+import { Shield, TrendingUp, Target, Zap, Users, BarChart3, Brain, Crosshair, ArrowRight, CreditCard } from 'lucide-react';
 
 export const Features: React.FC = () => {
   const features = [
