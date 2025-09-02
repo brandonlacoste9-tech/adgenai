@@ -23,8 +23,14 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
             <Link to="/dashboard" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
               Dashboard
             </Link>
+            <Link to="/demo" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+              AI Demo
+            </Link>
             <Link to="/autopsy/templated-campaign-fatigue" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
               AI Ad Autopsy
+            </Link>
+            <Link to="/cms" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+              Content
             </Link>
             <Link to="/agency-partners" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
               Partners
@@ -53,11 +59,11 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
             <Link to="/dashboard" className="block text-gray-600 hover:text-primary-600 font-medium">
               Dashboard
             </Link>
-            <Link to="/templates" className="block text-gray-600 hover:text-primary-600 font-medium">
-              Templates
+            <Link to="/demo" className="block text-gray-600 hover:text-primary-600 font-medium">
+              AI Demo
             </Link>
-            <Link to="/analytics" className="block text-gray-600 hover:text-primary-600 font-medium">
-              Analytics
+            <Link to="/cms" className="block text-gray-600 hover:text-primary-600 font-medium">
+              Content
             </Link>
             <Link to="/pricing" className="block text-gray-600 hover:text-primary-600 font-medium">
               Pricing
