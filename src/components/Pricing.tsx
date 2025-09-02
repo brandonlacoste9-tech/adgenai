@@ -1,4 +1,6 @@
 import React from 'react';
+import { CheckoutButton } from './CheckoutButton';
+import { STRIPE_PRICE_IDS } from '../lib/stripe';
 import { Check, Zap, Crown, Building } from 'lucide-react';
 
 export const Pricing: React.FC = () => {
@@ -22,6 +24,7 @@ export const Pricing: React.FC = () => {
         'No automated A/B testing'
       ],
       cta: 'Start Free',
+      stripeAction: null,
       popular: false
     },
     {
@@ -43,6 +46,7 @@ export const Pricing: React.FC = () => {
       ],
       limitations: [],
       cta: 'Start Pro Trial',
+      stripeAction: 'pro',
       popular: true
     },
     {
@@ -65,6 +69,7 @@ export const Pricing: React.FC = () => {
       ],
       limitations: [],
       cta: 'Contact Sales',
+      stripeAction: 'enterprise',
       popular: false
     }
   ];
@@ -127,13 +132,27 @@ export const Pricing: React.FC = () => {
                   ))}
                 </div>
 
-                <button className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
-                  plan.popular
-                    ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-xl'
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
-                }`}>
-                  {plan.cta}
-                </button>
+                {plan.stripeAction ? (
+                  <CheckoutButton
+                    priceId={STRIPE_PRICE_IDS[plan.stripeAction as keyof typeof STRIPE_PRICE_IDS]}
+                    planName={plan.name}
+                    className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
+                      plan.popular
+                        ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-xl'
+                        : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                    }`}
+                  >
+                    {plan.cta}
+                  </CheckoutButton>
+                ) : (
+                  <button className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
+                    plan.popular
+                      ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-xl'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                  }`}>
+                    {plan.cta}
+                  </button>
+                )}
 
                 {plan.name === 'Pro' && (
                   <div className="mt-4 text-center">

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { SubscriptionStatus } from './SubscriptionStatus';
+import { useSubscription } from '../hooks/useSubscription';
 import { Plus, Shield, TrendingUp, Target, AlertTriangle, CheckCircle } from 'lucide-react';
 import type { AdCreative, FraudAnalysis, PerformancePrediction } from '../types';
 
 export const Dashboard: React.FC = () => {
   const [selectedAd, setSelectedAd] = useState<AdCreative | null>(null);
+  const { isPro, isEnterprise, isPaid } = useSubscription();
 
   const mockAds: AdCreative[] = [
     {
@@ -111,12 +114,20 @@ export const Dashboard: React.FC = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Campaign Dashboard</h1>
-            <p className="text-gray-600 mt-2">Monitor performance and optimize your ad creatives</p>
+            <p className="text-gray-600 mt-2">
+              Monitor performance and optimize your ad creatives
+              {!isPaid && <span className="text-primary-600 font-medium"> - Upgrade for advanced features</span>}
+            </p>
           </div>
           <button className="btn-primary flex items-center space-x-2">
             <Plus className="w-5 h-5" />
             <span>Generate New Ad</span>
           </button>
+        </div>
+
+        {/* Subscription Status */}
+        <div className="mb-8">
+          <SubscriptionStatus />
         </div>
 
         {/* Key Metrics */}
@@ -126,7 +137,9 @@ export const Dashboard: React.FC = () => {
               <div>
                 <p className="text-sm text-gray-600">Total ROAS</p>
                 <p className="text-2xl font-bold text-gray-900">3.7x</p>
+                {!isPaid && <p className="text-xs text-gray-500">Limited tracking</p>}
               </div>
+              {!isPaid && <div className="absolute top-2 right-2 w-2 h-2 bg-gray-400 rounded-full"></div>}
               <TrendingUp className="w-8 h-8 text-success-600" />
             </div>
           </div>
@@ -136,7 +149,9 @@ export const Dashboard: React.FC = () => {
               <div>
                 <p className="text-sm text-gray-600">Avg. Performance Score</p>
                 <p className="text-2xl font-bold text-gray-900">85.7</p>
+                {!isPro && !isEnterprise && <p className="text-xs text-gray-500">5/month limit</p>}
               </div>
+              {!isPaid && <div className="absolute top-2 right-2 w-2 h-2 bg-gray-400 rounded-full"></div>}
               <Target className="w-8 h-8 text-primary-600" />
             </div>
           </div>
@@ -146,7 +161,9 @@ export const Dashboard: React.FC = () => {
               <div>
                 <p className="text-sm text-gray-600">Fraud Savings</p>
                 <p className="text-2xl font-bold text-gray-900">$2,847</p>
+                {!isPaid && <p className="text-xs text-gray-500">Pro feature</p>}
               </div>
+              {!isPaid && <div className="absolute top-2 right-2 w-2 h-2 bg-gray-400 rounded-full"></div>}
               <Shield className="w-8 h-8 text-success-600" />
             </div>
           </div>
