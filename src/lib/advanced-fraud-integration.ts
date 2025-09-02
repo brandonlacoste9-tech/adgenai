@@ -53,7 +53,7 @@ export class HybridFraudDetectionEngine {
     // HUMAN Security integration
     this.providers.set('human-security', {
       name: 'HUMAN Security',
-      apiKey: process.env.HUMAN_SECURITY_API_KEY || 'demo_key',
+      apiKey: import.meta.env.VITE_HUMAN_SECURITY_API_KEY || 'demo_key',
       endpoint: 'https://api.humansecurity.com/v1',
       capabilities: [
         'Device fingerprinting',
@@ -68,7 +68,7 @@ export class HybridFraudDetectionEngine {
     // ClickCease integration
     this.providers.set('clickcease', {
       name: 'ClickCease',
-      apiKey: process.env.CLICKCEASE_API_KEY || 'demo_key',
+      apiKey: import.meta.env.VITE_CLICKCEASE_API_KEY || 'demo_key',
       endpoint: 'https://api.clickcease.com/v2',
       capabilities: [
         'Click fraud detection',
