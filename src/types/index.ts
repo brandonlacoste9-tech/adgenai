@@ -53,3 +53,41 @@ export interface PerformancePrediction {
   confidence: number;
   insights: string[];
 }
+
+export type OAuthProvider = 'google' | 'facebook' | 'github' | 'twitter' | 'linkedin' | 'microsoft';
+
+export interface LinkedAccount {
+  id: string;
+  user_id: string;
+  provider: OAuthProvider;
+  provider_user_id: string;
+  provider_email?: string;
+  provider_name?: string;
+  provider_avatar_url?: string;
+  access_token?: string;
+  refresh_token?: string;
+  token_expires_at?: string;
+  metadata: Record<string, any>;
+  is_primary: boolean;
+  linked_at: string;
+  last_used_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AccountLinkRequest {
+  id: string;
+  user_id: string;
+  provider: OAuthProvider;
+  state_token: string;
+  redirect_url?: string;
+  expires_at: string;
+  created_at: string;
+}
+
+export interface AccountLinkingState {
+  linkedAccounts: LinkedAccount[];
+  loading: boolean;
+  error: string | null;
+  isLinking: boolean;
+}
