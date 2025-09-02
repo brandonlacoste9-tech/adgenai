@@ -151,11 +151,12 @@ export const Features: React.FC = () => {
             
             <div className="relative">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                Ready to Annihilate Your Competition?
+                🔴 LIVE EXECUTION: Competitor Annihilation in Progress
               </h3>
               <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">
-                Join the performance marketers who've already switched from overpriced, 
-                unreliable competitors to the future of AI advertising.
+                🎯 TARGET ACQUIRED: AdCreative.ai billing scandals exposed
+                🎯 TARGET LOCKED: Smartly.io pricing destruction initiated  
+                🎯 MISSION STATUS: Competitors fleeing in terror
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

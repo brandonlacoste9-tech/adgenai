@@ -234,12 +234,12 @@ export const Dashboard: React.FC = () => {
             <div className="flex items-center justify-between relative z-10">
               <div>
                 <p className="text-sm font-medium text-gray-600 mb-1">Fraud Savings</p>
-                <p className="text-3xl font-bold text-gray-900">${fraudSavings.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900 animate-scale-pulse">${fraudSavings.toLocaleString()}</p>
                 <p className="text-xs text-success-600 font-medium">Protected this month</p>
                 {!isPaid && <p className="text-xs text-gray-500 mt-1">Pro feature</p>}
               </div>
               <div className="bg-success-100 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                <Shield className="w-8 h-8 text-success-600" />
+                <Shield className="w-8 h-8 text-success-600 animate-bounce-gentle" />
               </div>
             </div>
           </div>

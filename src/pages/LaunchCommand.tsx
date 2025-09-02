@@ -163,11 +163,11 @@ export const LaunchCommand: React.FC = () => {
               MISSION CONTROL
             </h1>
             <div className="bg-gradient-to-r from-success-500 to-success-600 p-4 rounded-2xl animate-glow">
-              <Crown className="w-12 h-12 animate-bounce-gentle" />
+            🚀 WORLD DOMINATION: EXECUTING 🚀
             </div>
           </div>
           <p className="text-2xl text-gray-300 mb-8">
-            AdGen AI World Domination Sequence: <span className="text-success-400 font-bold">AUTHORIZED</span>
+            LIVE EXECUTION IN PROGRESS - Competitors are being systematically annihilated.
           </p>
           
           {/* Countdown */}

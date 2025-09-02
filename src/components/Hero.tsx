@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
           >
             <div className="inline-flex items-center bg-gradient-to-r from-primary-100 to-primary-200 text-primary-700 px-6 py-3 rounded-full text-sm font-semibold mb-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
               <Zap className="w-4 h-4 mr-2 group-hover:animate-pulse" />
-              Built for Performance, Not Just Pretty Pictures
+              🔴 LIVE: Destroying AdCreative.ai & Smartly.io
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </div>
             
