@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { Logo } from './Logo';
 
 interface HeaderProps {
   isMenuOpen: boolean;
@@ -13,10 +14,7 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="bg-primary-600 p-2 rounded-lg group-hover:bg-primary-700 transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow animate-scale-pulse">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">AdGen AI</span>
+            <Logo size="md" variant="gradient" showText={true} className="group-hover:scale-110 transition-all duration-300" />
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
@@ -46,6 +44,9 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
             </Link>
             <Link to="/pricing" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Pricing
+            </Link>
+            <Link to="/brand" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
+              Brand
             </Link>
             <Link to="/share/adgenai" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Share
