@@ -1,0 +1,73 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Zap, Menu, X } from 'lucide-react';
+
+interface HeaderProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (open: boolean) => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
+  return (
+    <header className="bg-white/95 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="bg-primary-600 p-2 rounded-lg group-hover:bg-primary-700 transition-colors">
+              <Zap className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold text-gray-900">AdGen AI</span>
+          </Link>
+
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link to="/dashboard" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+              Dashboard
+            </Link>
+            <Link to="/autopsy/templated-campaign-fatigue" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+              AI Ad Autopsy
+            </Link>
+            <Link to="/agency-partners" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+              Partners
+            </Link>
+            <Link to="/pricing" className="text-gray-600 hover:text-primary-600 font-medium transition-colors">
+              Pricing
+            </Link>
+            <button className="btn-primary">
+              <a href="/migration" className="block">Start Free Migration</a>
+            </button>
+          </nav>
+
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white border-t border-gray-100">
+          <div className="px-4 py-4 space-y-4">
+            <Link to="/dashboard" className="block text-gray-600 hover:text-primary-600 font-medium">
+              Dashboard
+            </Link>
+            <Link to="/templates" className="block text-gray-600 hover:text-primary-600 font-medium">
+              Templates
+            </Link>
+            <Link to="/analytics" className="block text-gray-600 hover:text-primary-600 font-medium">
+              Analytics
+            </Link>
+            <Link to="/pricing" className="block text-gray-600 hover:text-primary-600 font-medium">
+              Pricing
+            </Link>
+            <button className="btn-primary w-full">
+              Start Free Trial
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
