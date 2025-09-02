@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Rocket, Target, Crown, Shield, Zap, TrendingUp, 
-  Users, DollarSign, Globe, Star, CheckCircle, AlertTriangle,
-  Calendar, BarChart3, Trophy, Sparkles, Brain, Fire
-} from 'lucide-react';
+import { Rocket, Target, Crown, Shield, Zap, TrendingUp, Users, DollarSign, Globe, Star, CheckCircle, AlertTriangle, Calendar, BarChart3, Trophy, Sparkles, Brain, Siren as Fire } from 'lucide-react';
 
 interface LaunchMetric {
   label: string;
