@@ -19,6 +19,7 @@ import { PerformancePredictionDemo } from './components/PerformancePredictionDem
 import { SharePressKit } from './pages/SharePressKit';
 import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
+import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
 
 const HomePage: React.FC = () => (
   <>
@@ -51,6 +52,7 @@ function App() {
           <Route path="/demo" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><PerformancePredictionDemo /></div>} />
           <Route path="/share/press-kit" element={<div className="min-h-screen"><SharePressKit /></div>} />
           <Route path="/launch" element={<LaunchCommand />} />
+          <Route path="/red-carpet" element={<RedCarpetShowcase />} />
         </Routes>
       </main>
       <Footer />
