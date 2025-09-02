@@ -282,7 +282,7 @@ export const Pricing: React.FC = () => {
               </h3>
               <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">
                 Get our <span className="font-bold">White Glove Migration Service</span> absolutely free. 
-                We'll handle the entire transition process and ensure you're set up for success from day one.
+                We'll handle the entire transition process and ensure you\'re set up for success from day one.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
