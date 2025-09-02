@@ -16,6 +16,8 @@ import { AgencyPartnerOnePager } from './components/AgencyPartnerOnePager';
 import { AgencyManagementDashboard } from './components/AgencyManagementDashboard';
 import { CMSDashboard } from './components/CMSDashboard';
 import { PerformancePredictionDemo } from './components/PerformancePredictionDemo';
+import { ViralGrowthEngine } from './components/ViralGrowthEngine';
+import { CommunityHub } from './components/CommunityHub';
 import { Footer } from './components/Footer';
 
 const HomePage: React.FC = () => (
@@ -48,6 +50,8 @@ function App() {
             <Route path="/cms" element={<CMSDashboard />} />
             <Route path="/analytics" element={<AnalyticsDashboard />} />
             <Route path="/demo" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><PerformancePredictionDemo /></div>} />
+            <Route path="/viral" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><ViralGrowthEngine /></div>} />
+            <Route path="/community" element={<CommunityHub />} />
           </Routes>
         </main>
         <Footer />
