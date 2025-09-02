@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { Loader2 } from 'lucide-react';
+import { Loader2, CreditCard, Shield } from 'lucide-react';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -11,6 +11,7 @@ interface CheckoutButtonProps {
   children: React.ReactNode;
   userId?: string;
   userEmail?: string;
+  disabled?: boolean;
 }
 
 export const CheckoutButton: React.FC<CheckoutButtonProps> = ({
@@ -20,19 +21,22 @@ export const CheckoutButton: React.FC<CheckoutButtonProps> = ({
   children,
   userId,
   userEmail,
+  disabled = false,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCheckout = async () => {
     try {
       setLoading(true);
+      setError(null);
       
       const stripe = await stripePromise;
       if (!stripe) {
-        throw new Error('Stripe failed to load');
+        throw new Error('Stripe failed to load. Please refresh and try again.');
       }
 
-      // Call your edge function to create checkout session
+      // Call Supabase edge function to create checkout session
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout-session`, {
         method: 'POST',
         headers: {
@@ -49,43 +53,65 @@ export const CheckoutButton: React.FC<CheckoutButtonProps> = ({
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create checkout session');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create checkout session');
       }
 
-      const { sessionId } = await response.json();
+      const { sessionId, url } = await response.json();
 
-      // Redirect to Stripe Checkout
-      const { error } = await stripe.redirectToCheckout({
-        sessionId,
-      });
-
-      if (error) {
-        console.error('Stripe redirect error:', error);
-        throw error;
+      if (url) {
+        // Direct redirect for better UX
+        window.location.href = url;
+      } else {
+        // Fallback to Stripe redirect
+        const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
+        if (stripeError) {
+          throw stripeError;
+        }
       }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Something went wrong. Please try again.');
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <button
-      onClick={handleCheckout}
-      disabled={loading}
-      className={`${className} ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-    >
-      {loading ? (
-        <div className="flex items-center justify-center space-x-2">
-          <Loader2 className="w-4 h-4 animate-spin" />
-          <span>Loading...</span>
+    <div className="w-full">
+      <button
+        onClick={handleCheckout}
+        disabled={loading || disabled}
+        className={`${className} ${
+          loading || disabled ? 'opacity-50 cursor-not-allowed' : ''
+        } relative overflow-hidden group`}
+      >
+        {loading ? (
+          <div className="flex items-center justify-center space-x-2">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span>Processing...</span>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center space-x-2">
+            <CreditCard className="w-4 h-4" />
+            <span>{children}</span>
+          </div>
+        )}
+        
+        {/* Shimmer effect on hover */}
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      </button>
+      
+      {error && (
+        <div className="mt-2 text-sm text-error-600 bg-error-50 border border-error-200 rounded-lg p-2">
+          {error}
         </div>
-      ) : (
-        children
       )}
-    </button>
+      
+      <div className="mt-2 flex items-center justify-center space-x-1 text-xs text-gray-500">
+        <Shield className="w-3 h-3" />
+        <span>Secured by Stripe</span>
+      </div>
+    </div>
   );
 };

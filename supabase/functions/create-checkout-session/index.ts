@@ -32,6 +32,8 @@ serve(async (req) => {
       throw new Error('Price ID is required')
     }
 
+    console.log('Creating checkout session for:', { priceId, userId, customerEmail })
+
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -54,10 +56,25 @@ serve(async (req) => {
         },
       },
       allow_promotion_codes: true,
+      billing_address_collection: 'auto',
+      tax_id_collection: {
+        enabled: true,
+      },
+      custom_text: {
+        submit: {
+          message: 'Start your 90-day performance guarantee today!'
+        }
+      }
     })
 
+    console.log('Checkout session created:', session.id)
+
     return new Response(
-      JSON.stringify({ sessionId: session.id, url: session.url }),
+      JSON.stringify({ 
+        sessionId: session.id, 
+        url: session.url,
+        success: true 
+      }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200,
@@ -66,7 +83,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error creating checkout session:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        success: false 
+      }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400,
