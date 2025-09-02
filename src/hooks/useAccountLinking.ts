@@ -67,7 +67,7 @@ export const useAccountLinking = () => {
       }
 
       // Create a link request with state token
-      const stateToken = crypto.randomUUID();
+      const stateToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       const { error } = await supabase
         .from('account_link_requests')
         .insert({

@@ -6,7 +6,7 @@ import { Features } from './components/Features';
 import { CompetitorComparison } from './components/CompetitorComparison';
 import { Testimonials } from './components/Testimonials';
 import { Pricing } from './components/Pricing';
-import { Dashboard } from './components/Dashboard';
+// import { Dashboard } from './components/Dashboard';
 import { EnhancedDashboard } from './components/EnhancedDashboard';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { ComparisonPage } from './pages/ComparisonPage';
@@ -22,7 +22,7 @@ import { AdvancedMLDashboard } from './components/AdvancedMLDashboard';
 import { ShareSummary } from './pages/ShareSummary';
 import { ShareChangelog } from './pages/ShareChangelog';
 import { SharePressKit } from './pages/SharePressKit';
-import { AccountLinking } from './components/AccountLinking';
+import { AccountLinkingFixed } from './components/AccountLinkingFixed';
 import { OAuthCallback } from './components/OAuthCallback';
 import { AccountSettings } from './pages/AccountSettings';
 import { Footer } from './components/Footer';
@@ -63,9 +63,8 @@ function App() {
             <Route path="/share/adgenai" element={<div className="min-h-screen"><ShareSummary /></div>} />
             <Route path="/share/changelog" element={<div className="min-h-screen"><ShareChangelog /></div>} />
             <Route path="/share/press-kit" element={<div className="min-h-screen"><SharePressKit /></div>} />
-            <Route path="/account-linking" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><AccountLinking /></div>} />
-            <Route path="/account-settings" element={<AccountSettings />} />
-            <Route path="/auth/callback" element={<OAuthCallback />} />
+            <Route path="/account-linking" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><AccountLinkingFixed /></div>} />
+            <Route path="/auth/callback" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><div>OAuth Callback Test</div></div>} />
           </Routes>
         </main>
         <Footer />

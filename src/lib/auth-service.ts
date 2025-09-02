@@ -116,7 +116,7 @@ export class AuthService {
    * Generate secure state token for OAuth flow
    */
   static generateStateToken(): string {
-    return crypto.randomUUID();
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
 
   /**
