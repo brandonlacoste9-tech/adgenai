@@ -9,6 +9,7 @@ import { EnhancedDashboard } from './components/EnhancedDashboard';
 import { ComparisonPage } from './pages/ComparisonPage';
 import { AutopsyPage } from './pages/AutopsyPage';
 import { MigrationIntake } from './components/MigrationIntake';
+import { OAuthCallback } from './components/OAuthCallback';
 import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
 import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/compare/:slug" element={<ComparisonPage />} />
           <Route path="/autopsy/:slug" element={<AutopsyPage />} />
           <Route path="/migration" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><div className="max-w-4xl mx-auto px-4"><MigrationIntake /></div></div>} />
+          <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="/launch" element={<LaunchCommand />} />
           <Route path="/red-carpet" element={<RedCarpetShowcase />} />
         </Routes>
