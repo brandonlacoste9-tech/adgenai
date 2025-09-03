@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import TrackShareView from '../components/TrackShareView';
 import { Callout } from '../components/Callout';
 import { 
-  Shield, TrendingUp, Target, Zap, Crown, Building, 
+  Shield, TrendingUp, Target, Zap, Crown, 
   CheckCircle, Star, ArrowRight, Brain, Sparkles 
 } from 'lucide-react';
 

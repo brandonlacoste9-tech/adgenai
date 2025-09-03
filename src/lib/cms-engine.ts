@@ -142,34 +142,7 @@ export class CMSEngine {
 
   private async getTemplate(type: string): Promise<string> {
     const templates = {
-      'autopsy': `
-# {{title}}
-
-## Executive Summary
-{{summary}}
-
-## Campaign Analysis
-**Budget**: ${{campaignBudget}}
-**Competitor**: {{competitorName}}
-**Duration**: {{duration}}
-
-### Performance Decline
-{{performanceAnalysis}}
-
-### Key Failure Points
-{{#each keyFailures}}
-- {{this}}
-{{/each}}
-
-### The Hidden Costs
-{{fraudAnalysis}}
-
-## How AdGen AI Prevents This
-{{adgenSolution}}
-
-### Estimated Savings
-With AdGen AI's integrated fraud detection and performance prediction, this campaign could have saved **${{estimatedSavings}}** in wasted spend.
-      `,
+      'autopsy': '# {{title}}\n\n## Executive Summary\n{{summary}}\n\n## Campaign Analysis\n**Budget**: ${{campaignBudget}}\n**Competitor**: {{competitorName}}\n**Duration**: {{duration}}\n\n### Performance Decline\n{{performanceAnalysis}}\n\n### Key Failure Points\n{{#each keyFailures}}\n- {{this}}\n{{/each}}\n\n### The Hidden Costs\n{{fraudAnalysis}}\n\n## How AdGen AI Prevents This\n{{adgenSolution}}\n\n### Estimated Savings\nWith AdGen AI\'s integrated fraud detection and performance prediction, this campaign could have saved **${{estimatedSavings}}** in wasted spend.',
       'case-study': `
 # {{title}}
 

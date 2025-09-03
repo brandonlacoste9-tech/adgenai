@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  FileText, Plus, Calendar, TrendingUp, Eye, Edit, Trash2, 
-  Search, Filter, Download, Share2, BarChart3, Target,
-  Clock, Users, MessageSquare, ExternalLink, CheckCircle,
-  AlertTriangle, Zap, Brain, Shield
+  FileText, Plus, Calendar, TrendingUp, Eye, Edit, Trash2,
+  Clock, MessageSquare, ExternalLink, Zap, Brain, Shield,
+  Download, Search, Target, BarChart3
 } from 'lucide-react';
 
 interface BlogPost {
@@ -136,9 +135,7 @@ export const CMSDashboard: React.FC = () => {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      });
+          'Content-Type': 'application/json'}});
 
       if (!response.ok) {
         throw new Error('Failed to generate autopsy');
@@ -287,7 +284,7 @@ export const CMSDashboard: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Filters and Search */}
+        {/* Filters and  */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { mlPerformanceAPI } from '../lib/ml-performance-api';
 import { fraudDetectionService } from '../lib/fraud-detection-service';
-import { Brain, Shield, Target, TrendingUp, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
+import { Brain, Shield, Target, TrendingUp, CheckCircle, Zap } from 'lucide-react';
 
 interface DemoCreative {
   title: string;

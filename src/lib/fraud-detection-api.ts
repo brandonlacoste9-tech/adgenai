@@ -109,7 +109,7 @@ export class FraudDetectionAPI {
       platform: request.platform
     });
 
-    return this.parseHumanSecurityResponse(response, request);
+    return await this.parseHumanSecurityResponse(response, request);
   }
 
   private async analyzeWithClickCease(request: FraudAnalysisRequest): Promise<DetailedFraudAnalysis> {
@@ -120,7 +120,7 @@ export class FraudDetectionAPI {
       spend: request.budget
     });
 
-    return this.parseClickCeaseResponse(response, request);
+    return await this.parseClickCeaseResponse(response, request);
   }
 
   private async analyzeWithFraudlogix(request: FraudAnalysisRequest): Promise<DetailedFraudAnalysis> {
@@ -134,7 +134,7 @@ export class FraudDetectionAPI {
       }
     });
 
-    return this.parseFraudlogixResponse(response, request);
+    return await this.parseFraudlogixResponse(response, request);
   }
 
   private async analyzeWithInternalEngine(request: FraudAnalysisRequest): Promise<DetailedFraudAnalysis> {
@@ -328,19 +328,53 @@ export class FraudDetectionAPI {
     return { success: true, data: { riskScore: Math.random() * 100 } };
   }
 
-  private parseHumanSecurityResponse(response: any, request: FraudAnalysisRequest): DetailedFraudAnalysis {
+  private async parseHumanSecurityResponse(response: any, request: FraudAnalysisRequest): Promise<DetailedFraudAnalysis> {
     // Parse HUMAN Security API response format
-    return this.analyzeWithInternalEngine(request);
+    return await this.analyzeWithInternalEngine(request);
   }
 
-  private parseClickCeaseResponse(response: any, request: FraudAnalysisRequest): DetailedFraudAnalysis {
+  private async parseClickCeaseResponse(response: any, request: FraudAnalysisRequest): Promise<DetailedFraudAnalysis> {
     // Parse ClickCease API response format
-    return this.analyzeWithInternalEngine(request);
+    return await this.analyzeWithInternalEngine(request);
   }
 
-  private parseFraudlogixResponse(response: any, request: FraudAnalysisRequest): DetailedFraudAnalysis {
+  private async parseFraudlogixResponse(response: any, request: FraudAnalysisRequest): Promise<DetailedFraudAnalysis> {
     // Parse Fraudlogix API response format
-    return this.analyzeWithInternalEngine(request);
+    return await this.analyzeWithInternalEngine(request);
+  }
+
+  private getFallbackAnalysis(request: FraudAnalysisRequest): DetailedFraudAnalysis {
+    return {
+      overallRiskScore: 25,
+      riskLevel: 'low' as const,
+      confidence: 0.6,
+      analysisFactors: {
+        deviceFingerprinting: {
+          score: 20,
+          uniqueDevices: 1,
+          suspiciousPatterns: []
+        },
+        behaviorAnalysis: {
+          score: 25,
+          clickPatterns: ['normal'],
+          engagementQuality: 0.8
+        },
+        geographicRisk: {
+          score: 15,
+          highRiskRegions: [],
+          vpnDetection: 0.1
+        },
+        temporalPatterns: {
+          score: 20,
+          unusualTiming: [],
+          botActivity: 0.05
+        }
+      },
+      estimatedSavings: 0,
+      recommendation: 'Monitor campaign performance manually',
+      preventionStrategies: ['Basic click filtering', 'Geographic restrictions'],
+      monitoringAlerts: ['Fallback mode active']
+    };
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, Target, Crown, Shield, Zap, TrendingUp, Users, DollarSign, Globe, Star, CheckCircle, AlertTriangle, Calendar, BarChart3, Trophy, Sparkles, Brain, Siren as Fire } from 'lucide-react';
+import { Rocket, Target, Crown, Shield, Zap, Globe, CheckCircle, BarChart3, Trophy, Sparkles, Brain, Siren as Fire } from 'lucide-react';
 
 interface LaunchMetric {
   label: string;
@@ -13,8 +13,7 @@ interface LaunchMetric {
 
 export const LaunchCommand: React.FC = () => {
   const [countdown, setCountdown] = useState(30);
-  const [launchPhase, setLaunchPhase] = useState<'preparation' | 'ignition' | 'acceleration' | 'domination'>('preparation');
-
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown(prev => Math.max(0, prev - 1));

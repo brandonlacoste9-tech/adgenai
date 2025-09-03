@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Star, Award, TrendingUp, MessageSquare, Calendar, Crown, Shield, Target, Zap } from 'lucide-react';
+import { Users, Star, Award, TrendingUp, Calendar, Crown, Shield, Target, Zap } from 'lucide-react';
 
 interface CommunityMember {
   id: string;

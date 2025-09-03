@@ -4,8 +4,7 @@ import { useSubscription } from '../hooks/useSubscription';
 import { CheckoutButton } from './CheckoutButton';
 import { STRIPE_PRICE_IDS } from '../lib/stripe';
 import { 
-  CheckCircle, AlertTriangle, XCircle, Crown, Building, Zap, 
-  ArrowRight, Shield, Star, CreditCard, Calendar
+  CheckCircle, AlertTriangle, XCircle, Crown, Building, Zap, Shield, Star, CreditCard, Calendar
 } from 'lucide-react';
 
 export const SubscriptionStatus: React.FC = () => {

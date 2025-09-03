@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckoutButton } from './CheckoutButton';
-import { STRIPE_PRICE_IDS, formatPrice, SUBSCRIPTION_PLANS } from '../lib/stripe';
+import { STRIPE_PRICE_IDS} from '../lib/stripe';
 import { Check, Zap, Crown, Building, Star, Shield, ArrowRight, X } from 'lucide-react';
 
 export const Pricing: React.FC = () => {

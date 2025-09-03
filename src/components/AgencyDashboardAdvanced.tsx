@@ -4,7 +4,7 @@ import {
   Users, DollarSign, TrendingUp, Award, Calendar, Download,
   Plus, Settings, BarChart3, Target, Shield, Star, ArrowRight,
   Eye, Edit, Pause, Play, AlertTriangle, CheckCircle, Crown,
-  Building, Zap, CreditCard, Globe, Palette, Code, Bell
+  Building, Zap, CreditCard, Globe, Palette, Code, Bell, FileText
 } from 'lucide-react';
 
 interface AgencyPartner {

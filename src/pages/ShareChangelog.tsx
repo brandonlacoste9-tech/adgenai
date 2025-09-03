@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import TrackShareView from '../components/TrackShareView';
 import { Callout } from '../components/Callout';
-import { Calendar, CheckCircle, Zap, Shield, Brain, Target } from 'lucide-react';
+import { Calendar, CheckCircle} from 'lucide-react';
 
 export const ShareChangelog: React.FC = () => {
   const releases = [

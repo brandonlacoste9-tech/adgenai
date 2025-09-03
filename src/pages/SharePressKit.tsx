@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import TrackShareView from '../components/TrackShareView';
 import { Callout } from '../components/Callout';
-import { Download, Image, FileText, Users, TrendingUp, Shield, Crown } from 'lucide-react';
+import { Download, Image, FileText, Users, Shield, Brain, Target } from 'lucide-react';
 
 export const SharePressKit: React.FC = () => {
   const assets = [

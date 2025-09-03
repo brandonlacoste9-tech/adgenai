@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SubscriptionStatus } from './SubscriptionStatus';
 import { ComparisonAnalytics } from './ComparisonAnalytics';
@@ -8,9 +8,9 @@ import { fraudDetectionService } from '../lib/fraud-detection-service';
 import { attributionAnalyticsService } from '../lib/attribution-analytics-service';
 import { trackFeature } from '../lib/analytics-tracking';
 import { 
-  Plus, Shield, TrendingUp, Target, AlertTriangle, CheckCircle, 
-  X, Eye, Edit, Play, Pause, BarChart3, Users, Calendar,
-  Download, Share2, Filter, Search, SortDesc, Zap, Brain,
+  Plus, Shield, TrendingUp, Target, 
+  X, Eye, Edit, BarChart3,
+  Download, Share2, Search, Zap, Brain,
   Sparkles, Rocket, Crown, Star
 } from 'lucide-react';
 
@@ -43,7 +43,7 @@ export const EnhancedDashboard: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'performance' | 'created' | 'fraud'>('performance');
   const [analyzing, setAnalyzing] = useState<string | null>(null);
-  const { isPro, isEnterprise, isPaid, subscription } = useSubscription();
+  const { isPro, isEnterprise, isPaid} = useSubscription();
 
   const [ads, setAds] = useState<EnhancedAdCreative[]>([
     {

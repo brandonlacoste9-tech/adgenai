@@ -39,7 +39,7 @@ export default function TrackShareView({
 
     supabase.from('share_views').insert(payload).then(() => {
       console.log('📊 Share view tracked:', page);
-    }).catch(error => {
+    }).catch((error: any) => {
       console.error('Share tracking error:', error);
     });
   }, [page, meta]);

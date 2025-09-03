@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SubscriptionStatus } from './SubscriptionStatus';
 import { useSubscription } from '../hooks/useSubscription';
 import { 
-  Plus, Shield, TrendingUp, Target, AlertTriangle, CheckCircle, 
-  X, Eye, Edit, Play, Pause, BarChart3, Users, Calendar,
-  Download, Share2, Filter, Search, SortDesc
-} from 'lucide-react';
+  Plus, Shield, TrendingUp, Target, CheckCircle, 
+  X, Eye, Edit, BarChart3,
+  Download, Share2, Search} from 'lucide-react';
 import type { AdCreative, FraudAnalysis, PerformancePrediction } from '../types';
 
 export const Dashboard: React.FC = () => {
@@ -14,7 +13,7 @@ export const Dashboard: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'performance' | 'created' | 'fraud'>('performance');
-  const { isPro, isEnterprise, isPaid, subscription } = useSubscription();
+  const { isPro, isEnterprise, isPaid} = useSubscription();
 
   const mockAds: AdCreative[] = [
     {

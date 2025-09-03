@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, TrendingUp, Users, Eye, Target, ArrowRight } from 'lucide-react';
+import { BarChart3, Users, Eye, Target} from 'lucide-react';
 
 interface ComparisonMetrics {
   totalViews: number;
@@ -25,9 +25,7 @@ export const ComparisonAnalytics: React.FC = () => {
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/analytics-tracker/analytics-summary?range=${timeRange}`,
         {
           headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-        }
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`}}
       );
 
       if (response.ok) {
