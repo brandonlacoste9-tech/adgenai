@@ -1,0 +1,12 @@
+{
+  "plugins": ["@vitejs/plugin-react"],
+  "build": {
+    "outDir": "dist",
+    "emptyOutDir": true,
+    "minify": "esbuild",
+    "sourcemap": false
+  },
+  "server": {
+    "port": 3000
+  }
+}

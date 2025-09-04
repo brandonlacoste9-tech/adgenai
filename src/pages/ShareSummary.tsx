@@ -3,8 +3,7 @@ import { motion } from 'framer-motion';
 import TrackShareView from '../components/TrackShareView';
 import { Callout } from '../components/Callout';
 import { 
-  Shield, TrendingUp, Target, Zap, Crown, Building, 
-  CheckCircle, Star, ArrowRight, Brain, Sparkles 
+  Shield, TrendingUp, Target, Crown, CheckCircle, Star, ArrowRight, Brain, Sparkles 
 } from 'lucide-react';
 
 export const ShareSummary: React.FC = () => {
@@ -87,7 +86,7 @@ export const ShareSummary: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <Zap className="w-6 h-6 text-primary-600" />
+                  {/* <Zap className="w-6 h-6 text-primary-600" /> */}
                   <span><strong>Instant Creatives</strong> from a URL (copy, headlines, images, sizes, variants)</span>
                 </div>
                 <div className="flex items-center space-x-3">
