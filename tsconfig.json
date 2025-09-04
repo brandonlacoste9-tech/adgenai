@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
-  "forceConsistentCasingInFileNames": true,
-  "strict": true,
-  "module": "ES2022",
-  "moduleResolution": "bundler",
-  "esModuleInterop": true,
-  "skipLibCheck": true,
-  "allowSyntheticDefaultImports": true
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
   },
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "exclude": ["supabase/functions"]
+  "include": ["src"]
 }
