@@ -96,7 +96,7 @@ export class MLPerformanceEngine {
     }
   }
 
-  async analyzeCreative(creative: any): Promise<CreativeAnalysis> {
+  async analyzeCreative(creative: Partial<CreativeAnalysis> & { description?: string; platform?: string; industry?: string; budget?: number; hasVideo?: boolean; hasHashtags?: boolean; hasMusic?: boolean }): Promise<CreativeAnalysis> {
     // Advanced feature extraction using computer vision and NLP
     const analysis: CreativeAnalysis = {
       visualComplexity: this.calculateVisualComplexity(creative),
@@ -111,7 +111,7 @@ export class MLPerformanceEngine {
     return analysis;
   }
 
-  async predictPerformance(creative: any, targetAudience?: any): Promise<PerformancePrediction> {
+  async predictPerformance(creative: Partial<CreativeAnalysis> & { description?: string; platform?: string; industry?: string; budget?: number; hasVideo?: boolean; hasHashtags?: boolean; hasMusic?: boolean }, targetAudience?: { size?: string }): Promise<PerformancePrediction> {
     if (!this.isInitialized) await this.initialize();
 
     try {
@@ -165,7 +165,7 @@ export class MLPerformanceEngine {
     }
   }
 
-  private extractMLFeatures(analysis: CreativeAnalysis, creative: any, audience?: any): number[] {
+  private extractMLFeatures(analysis: CreativeAnalysis, creative: Partial<CreativeAnalysis> & { description?: string; platform?: string; industry?: string; budget?: number; hasVideo?: boolean; hasHashtags?: boolean; hasMusic?: boolean }, audience?: { size?: string }): number[] {
     return [
       analysis.visualComplexity,
       analysis.textDensity,

@@ -15,6 +15,15 @@ export interface TrafficPattern {
   userBehaviorScore: number;
 }
 
+export interface CampaignData {
+  description?: string;
+  platform?: string;
+  budget?: number;
+  hasVideo?: boolean;
+  hasHashtags?: boolean;
+  hasMusic?: boolean;
+}
+
 export class FraudDetectionEngine {
   private apiKey: string;
   private baseUrl: string;
@@ -25,7 +34,7 @@ export class FraudDetectionEngine {
     this.baseUrl = 'https://api.frauddetection.com/v1';
   }
 
-  async analyzeCampaignFraud(campaignData: any): Promise<FraudAnalysis> {
+  async analyzeCampaignFraud(campaignData: CampaignData): Promise<FraudAnalysis> {
     try {
       // Simulate API call to fraud detection service
       const trafficPattern = this.analyzeTrafficPattern(campaignData);
@@ -54,7 +63,7 @@ export class FraudDetectionEngine {
     }
   }
 
-  private analyzeTrafficPattern(campaignData: any): TrafficPattern {
+  private analyzeTrafficPattern(campaignData: CampaignData): TrafficPattern {
     // Simulate traffic pattern analysis
     const baseClickVelocity = Math.random() * 100;
     const suspiciousVelocity = baseClickVelocity > 80 ? 0.8 : 0.2;
@@ -76,13 +85,13 @@ export class FraudDetectionEngine {
     };
   }
 
-  private analyzeDeviceFingerprints(campaignData: any): number {
+  private analyzeDeviceFingerprints(campaignData: CampaignData): number {
     // Analyze device fingerprint diversity
     // Low diversity = higher fraud risk
     return Math.random() * 0.5 + 0.3;
   }
 
-  private analyzeBehaviorPatterns(campaignData: any): number {
+  private analyzeBehaviorPatterns(campaignData: CampaignData): number {
     // Analyze user behavior patterns
     // Unusual patterns = higher fraud risk
     return Math.random() * 0.4 + 0.4;
@@ -184,7 +193,7 @@ export class FraudDetectionEngine {
     return Math.round(dataQuality * 100);
   }
 
-  private getFallbackAnalysis(campaignData: any): FraudAnalysis {
+  private getFallbackAnalysis(campaignData: CampaignData): FraudAnalysis {
     return {
       score: 20,
       riskLevel: 'low',

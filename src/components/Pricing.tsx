@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckoutButton } from './CheckoutButton';
-import { STRIPE_PRICE_IDS, formatPrice, SUBSCRIPTION_PLANS } from '../lib/stripe';
+import { STRIPE_PRICE_IDS } from '../lib/stripe';
 import { Check, Zap, Crown, Building, Star, Shield, ArrowRight, X } from 'lucide-react';
 
 export const Pricing: React.FC = () => {
@@ -124,7 +124,7 @@ export const Pricing: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center bg-white rounded-xl p-1 shadow-lg border border-gray-200 mb-12"
           >
-            <button
+              <div
               onClick={() => setBillingCycle('monthly')}
               className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
                 billingCycle === 'monthly'
@@ -133,8 +133,8 @@ export const Pricing: React.FC = () => {
               }`}
             >
               Monthly
-            </button>
-            <button
+              </div>
+              <div
               onClick={() => setBillingCycle('yearly')}
               className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 relative ${
                 billingCycle === 'yearly'
@@ -146,7 +146,7 @@ export const Pricing: React.FC = () => {
               <span className="absolute -top-2 -right-2 bg-success-500 text-white text-xs px-2 py-1 rounded-full">
                 Save 17%
               </span>
-            </button>
+              </div>
           </motion.div>
         </div>
 

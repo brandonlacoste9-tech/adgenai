@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { mlPerformanceAPI } from '../lib/ml-performance-api';
 import { fraudDetectionService } from '../lib/fraud-detection-service';
-import { Brain, Shield, Target, TrendingUp, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
+import { Brain, Shield, Target, TrendingUp, CheckCircle, Zap } from 'lucide-react';
 
 interface DemoCreative {
   title: string;
@@ -118,7 +118,7 @@ export const PerformancePredictionDemo: React.FC = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Platform
                 </label>
-                <select
+                  <select title="Select Platform"
                   value={creative.platform}
                   onChange={(e) => setCreative(prev => ({ ...prev, platform: e.target.value as any }))}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500"
@@ -135,7 +135,7 @@ export const PerformancePredictionDemo: React.FC = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Industry
                 </label>
-                <select
+                  <select title="Select Industry"
                   value={creative.industry}
                   onChange={(e) => setCreative(prev => ({ ...prev, industry: e.target.value }))}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500"

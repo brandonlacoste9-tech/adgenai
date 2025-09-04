@@ -56,7 +56,7 @@ export class PerformancePredictionEngine {
     }
   }
 
-  private extractFeatures(creative: any): CreativeFeatures {
+  private extractFeatures(creative: Partial<CreativeFeatures> & { description?: string; imageWidth?: number; imageHeight?: number; }): CreativeFeatures {
     // Extract features from creative data
     const textLength = creative.description?.length || 0;
     const imageAspectRatio = creative.imageWidth && creative.imageHeight 
@@ -88,7 +88,7 @@ export class PerformancePredictionEngine {
     return multipliers[platform as keyof typeof multipliers] || 1.0;
   }
 
-  async predict(creative: any): Promise<PerformancePrediction> {
+  async predict(creative: Partial<CreativeFeatures> & { description?: string; imageWidth?: number; imageHeight?: number; }): Promise<PerformancePrediction> {
     if (!this.isInitialized || !this.model) {
       await this.initialize();
     }
@@ -128,7 +128,7 @@ export class PerformancePredictionEngine {
       const score = Math.round((expectedCtr / 8.0 + (1 - expectedCpa / 100.0) + confidence) / 3 * 100);
 
       // Generate insights
-      const insights = this.generateInsights(features, expectedCtr, expectedCpa, confidence);
+    const insights = this.generateInsights(features);
       const recommendations = this.generateRecommendations(features, score);
 
       return {
@@ -154,10 +154,10 @@ export class PerformancePredictionEngine {
     }
   }
 
-  private generateInsights(features: CreativeFeatures, ctr: number, cpa: number, confidence: number): string[] {
+  private generateInsights(features: CreativeFeatures): string[] {
     const insights: string[] = [];
 
-    if (features.colorContrast > 0.8) {
+  if (features.colorContrast > 0.8) {
       insights.push('Excellent visual hierarchy and contrast detected');
     } else if (features.colorContrast < 0.4) {
       insights.push('Consider improving color contrast for better visibility');
@@ -211,7 +211,7 @@ export class PerformancePredictionEngine {
     return recommendations.slice(0, 3); // Limit to top 3 recommendations
   }
 
-  async trainModel(trainingData: any[]): Promise<void> {
+  async trainModel(trainingData: Array<Partial<CreativeFeatures> & { label?: PerformancePrediction }>): Promise<void> {
     if (!this.model) {
       await this.initialize();
     }

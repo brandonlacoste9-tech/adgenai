@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SubscriptionStatus } from './SubscriptionStatus';
 import { ComparisonAnalytics } from './ComparisonAnalytics';
@@ -7,12 +7,7 @@ import { mlPerformanceAPI } from '../lib/ml-performance-api';
 import { fraudDetectionService } from '../lib/fraud-detection-service';
 import { attributionAnalyticsService } from '../lib/attribution-analytics-service';
 import { trackFeature } from '../lib/analytics-tracking';
-import { 
-  Plus, Shield, TrendingUp, Target, AlertTriangle, CheckCircle, 
-  X, Eye, Edit, Play, Pause, BarChart3, Users, Calendar,
-  Download, Share2, Filter, Search, SortDesc, Zap, Brain,
-  Sparkles, Rocket, Crown, Star
-} from 'lucide-react';
+import { Plus, Shield, TrendingUp, Target, X, Eye, Edit, BarChart3, Download, Share2, Zap, Brain, Sparkles, Rocket, Crown, Star, Search } from 'lucide-react';
 
 interface EnhancedAdCreative {
   id: string;
@@ -43,7 +38,7 @@ export const EnhancedDashboard: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'performance' | 'created' | 'fraud'>('performance');
   const [analyzing, setAnalyzing] = useState<string | null>(null);
-  const { isPro, isEnterprise, isPaid, subscription } = useSubscription();
+  const { isPro, isEnterprise, isPaid } = useSubscription();
 
   const [ads, setAds] = useState<EnhancedAdCreative[]>([
     {
@@ -194,14 +189,14 @@ export const EnhancedDashboard: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center space-x-4">
-            <button 
+              <button title="View Analytics"
               onClick={() => trackFeature('analytics_view', 'clicked')}
               className="btn-secondary flex items-center space-x-2 hover:scale-110 transition-all duration-300"
             >
               <BarChart3 className="w-5 h-5" />
               <span>Analytics</span>
             </button>
-            <button 
+              <button title="Generate New Ad"
               onClick={() => trackFeature('generate_ad', 'clicked')}
               className="btn-primary flex items-center space-x-2 group animate-glow hover:scale-110 transition-all duration-300"
             >
@@ -310,6 +305,7 @@ export const EnhancedDashboard: React.FC = () => {
             
             <div className="flex items-center space-x-4">
               <select
+                  title="Select Filter Status"
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
                 className="px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-300 hover:border-primary-400"
@@ -322,6 +318,7 @@ export const EnhancedDashboard: React.FC = () => {
               </select>
               
               <select
+                  title="Select Sort Option"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 className="px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-300 hover:border-primary-400"
@@ -463,6 +460,7 @@ export const EnhancedDashboard: React.FC = () => {
                     {/* AI Analysis Button */}
                     <div className="pt-4 border-t border-gray-100">
                       <button
+                        title="Run Full AI Analysis"
                         onClick={(e) => {
                           e.stopPropagation();
                           runFullAnalysis(ad);
@@ -489,6 +487,7 @@ export const EnhancedDashboard: React.FC = () => {
                   {/* Enhanced Action Buttons */}
                   <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
                     <button 
+                      title="View Details"
                       onClick={(e) => {
                         e.stopPropagation();
                         trackFeature('view_details', ad.id);
@@ -499,10 +498,10 @@ export const EnhancedDashboard: React.FC = () => {
                       <span>View Details</span>
                     </button>
                     <div className="flex items-center space-x-2">
-                      <button className="p-2 text-gray-400 hover:text-primary-600 transition-all duration-300 hover:scale-125 hover:bg-primary-50 rounded-lg">
+                      <button title="Edit Ad" className="p-2 text-gray-400 hover:text-primary-600 transition-all duration-300 hover:scale-125 hover:bg-primary-50 rounded-lg">
                         <Edit className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-gray-400 hover:text-primary-600 transition-all duration-300 hover:scale-125 hover:bg-primary-50 rounded-lg">
+                      <button title="Share Ad" className="p-2 text-gray-400 hover:text-primary-600 transition-all duration-300 hover:scale-125 hover:bg-primary-50 rounded-lg">
                         <Share2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -539,6 +538,7 @@ export const EnhancedDashboard: React.FC = () => {
                       <p className="text-gray-600 text-lg">{selectedAd.description}</p>
                     </div>
                     <button
+                      title="Close Modal"
                       onClick={() => setSelectedAd(null)}
                       className="p-3 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all duration-300 hover:scale-125"
                     >
@@ -572,10 +572,10 @@ export const EnhancedDashboard: React.FC = () => {
                           </span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <button className="p-3 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all duration-300 hover:scale-125">
+                          <button title="Download Ad" className="p-3 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all duration-300 hover:scale-125">
                             <Download className="w-5 h-5" />
                           </button>
-                          <button className="p-3 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all duration-300 hover:scale-125">
+                          <button title="Share Ad" className="p-3 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all duration-300 hover:scale-125">
                             <Share2 className="w-5 h-5" />
                           </button>
                         </div>

@@ -77,7 +77,7 @@ export class MLPerformanceAPI {
     }
   }
 
-  async predict(creative: any, targetAudience?: any): Promise<PerformancePredictionResult> {
+  async predict(creative: Partial<MLFeatures> & { description?: string; platform?: string; industry?: string; budget?: number }, targetAudience?: { size?: string }): Promise<PerformancePredictionResult> {
     if (!this.isInitialized) await this.initialize();
 
     try {
@@ -118,7 +118,7 @@ export class MLPerformanceAPI {
     }
   }
 
-  private extractFeatures(creative: any, audience?: any): MLFeatures {
+  private extractFeatures(creative: Partial<MLFeatures> & { description?: string; platform?: string; industry?: string; budget?: number }, audience?: { size?: string }): MLFeatures {
     const description = creative.description || '';
     
     return {
