@@ -1,8 +1,4 @@
 {
-  "build": {
-    "env": {},
-    "command": "npm run build",
-    "outputDirectory": "dist"
-  },
-  "framework": "vite"
+  "cleanUrls": true,
+  "trailingSlash": false
 }
