@@ -1,3 +1,5 @@
+import { slackService } from './slack-integration';
+
 export interface FraudProvider {
   name: string;
   apiKey: string;
@@ -261,6 +263,11 @@ export class HybridFraudDetectionEngine {
         ]
       }
     };
+
+    // Send Slack notification for high-risk fraud detection
+    if (overallRiskScore > 50) {
+      await this.sendSlackFraudAlert(hybridAnalysis, request);
+    }
   }
 
   private identifyConflicts(results: any): string[] {
@@ -339,6 +346,20 @@ export class HybridFraudDetectionEngine {
   private async processRealTimeAlerts(): Promise<void> {
     // Process real-time fraud alerts and take action
     console.log('🔍 Processing real-time fraud monitoring alerts');
+  }
+
+  private async sendSlackFraudAlert(analysis: HybridFraudAnalysis, request: any): Promise<void> {
+    try {
+      await slackService.sendFraudAlert({
+        riskScore: analysis.overallRiskScore,
+        riskLevel: analysis.riskLevel,
+        campaignName: request.campaignName || 'Unknown Campaign',
+        estimatedSavings: analysis.estimatedSavings,
+        details: analysis.consensusAnalysis.finalRecommendation
+      });
+    } catch (error) {
+      console.error('Failed to send Slack fraud alert:', error);
+    }
   }
 
   // Utility methods

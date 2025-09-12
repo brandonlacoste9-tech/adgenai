@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SubscriptionStatus } from './SubscriptionStatus';
 import { ComparisonAnalytics } from './ComparisonAnalytics';
+import SlackNotificationPanel from './SlackNotificationPanel';
 import { useSubscription } from '../hooks/useSubscription';
 import { mlPerformanceAPI } from '../lib/ml-performance-api';
 import { fraudDetectionService } from '../lib/fraud-detection-service';
@@ -215,6 +216,16 @@ export const EnhancedDashboard: React.FC = () => {
           className="mb-8"
         >
           <SubscriptionStatus />
+        </motion.div>
+
+        {/* Slack Notification Panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="mb-8"
+        >
+          <SlackNotificationPanel />
         </motion.div>
 
         {/* Enhanced Key Metrics */}

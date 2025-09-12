@@ -13,6 +13,7 @@ import { OAuthCallback } from './components/OAuthCallback';
 import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
 import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
+import CommunityPage from './pages/Community';
 
 const HomePage: React.FC = () => (
   <>
@@ -40,6 +41,7 @@ function App() {
           <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="/launch" element={<LaunchCommand />} />
           <Route path="/red-carpet" element={<RedCarpetShowcase />} />
+          <Route path="/community" element={<CommunityPage />} />
         </Routes>
       </main>
       <Footer />
