@@ -45,3 +45,22 @@ a{color:var(--cyan);text-decoration:none}
 .steps{max-width:1100px;margin:10px auto 40px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .steps > div{background:var(--card);padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,.06);text-align:center}
 footer{border-top:1px solid rgba(255,255,255,.06);color:var(--muted);text-align:center;padding:30px 18px;margin-top:40px}
+
+/* Buzz effect animation */
+@keyframes buzz {
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-1px) translateY(-1px); }
+  20% { transform: translateX(1px) translateY(1px); }
+  30% { transform: translateX(-1px) translateY(1px); }
+  40% { transform: translateX(1px) translateY(-1px); }
+  50% { transform: translateX(-1px) translateY(-1px); }
+  60% { transform: translateX(1px) translateY(1px); }
+  70% { transform: translateX(-1px) translateY(1px); }
+  80% { transform: translateX(1px) translateY(-1px); }
+  90% { transform: translateX(-1px) translateY(-1px); }
+  100% { transform: translateX(0); }
+}
+
+.buzz {
+  animation: buzz 0.12s ease-in-out;
+}

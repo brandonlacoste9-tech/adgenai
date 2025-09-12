@@ -16,14 +16,14 @@
     <nav class="links">
       <a href="#features">Features</a>
       <a href="#contact">Contact</a>
-      <a class="cta-small" href="mailto:brandonlacoste9@gmail.com">Request a demo</a>
+      <a class="cta-small buzzable" href="mailto:brandonlacoste9@gmail.com">Request a demo</a>
     </nav>
   </header>
 
   <main class="hero">
     <h1>Launch better ads, faster — with full observability</h1>
     <p>Create, A/B test, and monitor ads in real time. Integrated with Grafana (metrics, logs, traces) and Supabase.</p>
-    <a class="btn primary" href="mailto:brandonlacoste9@gmail.com?subject=AdGenAI%20Demo%20Request">founder@yourco.com</a>
+    <a class="btn primary buzzable" href="mailto:brandonlacoste9@gmail.com?subject=AdGenAI%20Demo%20Request">founder@yourco.com</a>
     <div><span class="badge">P95 &lt; 400ms • Error &lt; 1%</span></div>
   </main>
 
@@ -50,5 +50,24 @@
     <p>Questions? <a href="mailto:brandonlacoste9@gmail.com">brandonlacoste9@gmail.com</a></p>
     <p><a href="https://github.com/brandonlacoste9-tech/adgenai" target="_blank" rel="noopener">GitHub</a></p>
   </footer>
+
+  <script>
+    // Add buzz effect to all buzzable elements
+    document.addEventListener('DOMContentLoaded', function() {
+      const buzzableElements = document.querySelectorAll('.buzzable');
+      
+      buzzableElements.forEach(function(element) {
+        element.addEventListener('click', function(e) {
+          // Add buzz class
+          this.classList.add('buzz');
+          
+          // Remove buzz class after 120ms
+          setTimeout(() => {
+            this.classList.remove('buzz');
+          }, 120);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
