@@ -121,6 +121,98 @@
   100% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.3); }
 }
 
+/* Northern Ventures Splash Screen Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(50px) scale(0.9);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 12rem; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px);
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+}
+
+@keyframes aurora {
+  0% { 
+    background: radial-gradient(ellipse 80% 30% at 50% 20%, rgba(64, 224, 159, 0.3), transparent);
+  }
+  33% { 
+    background: radial-gradient(ellipse 80% 30% at 60% 25%, rgba(96, 165, 250, 0.3), transparent);
+  }
+  66% { 
+    background: radial-gradient(ellipse 80% 30% at 40% 20%, rgba(139, 92, 246, 0.3), transparent);
+  }
+  100% { 
+    background: radial-gradient(ellipse 80% 30% at 50% 20%, rgba(64, 224, 159, 0.3), transparent);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out 0.3s both;
+}
+
+.animate-expandWidth {
+  animation: expandWidth 0.8s ease-out 1.2s both;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-out infinite;
+}
+
+.animate-aurora {
+  animation: aurora 3s ease-in-out infinite;
+}
+
 @keyframes bounce-gentle {
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-5px) scale(1.02); }
