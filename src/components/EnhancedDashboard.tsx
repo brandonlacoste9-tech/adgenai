@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SubscriptionStatus } from './SubscriptionStatus';
 import { ComparisonAnalytics } from './ComparisonAnalytics';
+import { BotAdMessage } from './BotAdMessage';
 import { useSubscription } from '../hooks/useSubscription';
+import { useMessageTracking } from '../hooks/useMessageTracking';
 import { mlPerformanceAPI } from '../lib/ml-performance-api';
 import { fraudDetectionService } from '../lib/fraud-detection-service';
 import { attributionAnalyticsService } from '../lib/attribution-analytics-service';
@@ -39,6 +41,7 @@ export const EnhancedDashboard: React.FC = () => {
   const [sortBy, setSortBy] = useState<'performance' | 'created' | 'fraud'>('performance');
   const [analyzing, setAnalyzing] = useState<string | null>(null);
   const { isPro, isEnterprise, isPaid } = useSubscription();
+  const { shouldShowAdForContext, tracking } = useMessageTracking();
 
   const [ads, setAds] = useState<EnhancedAdCreative[]>([
     {
@@ -281,6 +284,22 @@ export const EnhancedDashboard: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Dashboard Bot Ad Message */}
+        {shouldShowAdForContext('dashboard') && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="mb-8"
+          >
+            <BotAdMessage 
+              context="dashboard"
+              messageCount={tracking.count}
+              limit={tracking.limit}
+            />
+          </motion.div>
+        )}
 
         {/* Enhanced Filters */}
         <motion.div

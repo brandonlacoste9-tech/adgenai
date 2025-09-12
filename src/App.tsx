@@ -6,6 +6,7 @@ import { Features } from './components/Features';
 import { Testimonials } from './components/Testimonials';
 import { Pricing } from './components/Pricing';
 import { EnhancedDashboard } from './components/EnhancedDashboard';
+import { ChatInterface } from './components/ChatInterface';
 import { ComparisonPage } from './pages/ComparisonPage';
 import { AutopsyPage } from './pages/AutopsyPage';
 import { MigrationIntake } from './components/MigrationIntake';
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<EnhancedDashboard />} />
+          <Route path="/chat" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><ChatInterface /></div>} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/compare/:slug" element={<ComparisonPage />} />
           <Route path="/autopsy/:slug" element={<AutopsyPage />} />
