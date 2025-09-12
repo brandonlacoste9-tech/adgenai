@@ -14,7 +14,6 @@ import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
 import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
 import { BusinessAssistant } from './pages/BusinessAssistant';
-import { TestPage } from './pages/TestPage';
 
 const HomePage: React.FC = () => (
   <>
@@ -35,8 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<EnhancedDashboard />} />
-          <Route path="/brain" element={<TestPage />} />
-          <Route path="/business-assistant" element={<BusinessAssistant />} />
+          <Route path="/brain" element={<BusinessAssistant />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/compare/:slug" element={<ComparisonPage />} />
           <Route path="/autopsy/:slug" element={<AutopsyPage />} />
