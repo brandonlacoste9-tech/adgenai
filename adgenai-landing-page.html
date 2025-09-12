@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdGenAI AI Brain - Autonomous Trend-Following System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #0A0E17;
+            --color-accent: #00F3FF;
+            --color-secondary: #9D00FF;
+            --color-highlight: #FF00C8;
+            --color-dark: #05070F;
+            --color-light: #FFFFFF;
+            --color-alert: #FFE900;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-light);
+            background: var(--color-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header Styles */
+        header {
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-icon::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, transparent 40%, rgba(255, 255, 255, 0.3), transparent 60%);
+            transform: rotate(30deg);
+            animation: shine 3s infinite linear;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--color-light);
+            background: linear-gradient(to right, var(--color-accent), var(--color-highlight));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+        nav a:hover {
+            color: var(--color-accent);
+            text-shadow: 0 0 10px var(--color-accent);
+        }
+        .demo-btn {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+            color: var(--color-primary);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--color-accent);
+        }
+        /* Buzz effect CSS */
+        .buzz {
+            animation: buzz 0.12s linear;
+        }
+        @keyframes buzz {
+            0% { transform: translateX(0);}
+            25% { transform: translateX(-2px);}
+            50% { transform: translateX(2px);}
+            75% { transform: translateX(-2px);}
+            100% { transform: translateX(0);}
+        }
+        /* Neural Network Background */
+        .neural-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        .neural-path {
+            position: absolute;
+            background: rgba(0, 243, 255, 0.1);
+            transform-origin: center;
+        }
+        .neural-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-accent);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+        .hero-content {
+            max-width: 800px;
+            margin-left: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 60px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: linear-gradient(to right, var(--color-light) 0%, var(--color-accent) 30%, var(--color-highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+        .hero h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: var(--color-accent);
+            text-shadow: 0 0 10px var(--color-accent);
+        }
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+            color: var(--color-primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+        }
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px var(--color-accent);
+        }
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        .section-dark {
+            background: var(--color-dark);
+        }
+        .section-gradient {
+            background: linear-gradient(to bottom, var(--color-primary), #0c1020);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: var(--color-light);
+            margin-bottom: 15px;
+        }
+        .section-title p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: linear-gradient(to bottom, rgba(19, 23, 42, 0.5), rgba(12, 16, 32, 0.5));
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 243, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 24px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        /* Workflow Section */
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+        .step-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .step-content ul {
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .step-content li {
+            margin-bottom: 8px;
+        }
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .tech-item {
+            padding: 30px 20px;
+            background: rgba(19, 23, 42, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+        .tech-icon {
+            font-size: 40px;
+            color: var(--color-accent);
+            margin-bottom: 20px;
+        }
+        .tech-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--color-light);
+            margin-bottom: 10px;
+        }
+        .tech-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 18px;
+        }
+        /* Footer */
+        footer {
+            background: var(--color-dark);
+            padding: 60px 0 30px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3 {
+            color: var(--color-accent);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-column a:hover {
+            color: var(--color-accent);
+        }
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50%;
+            color: var(--color-accent);
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover {
+            background: var(--color-accent);
+            color: var(--color-dark);
+            box-shadow: 0 0 15px var(--color-accent);
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-content {
+                margin-left: 0;
+                text-align: center;
+                padding: 0 20px;
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .workflow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .features-grid, .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Neural Network Background -->
+    <div class="neural-background" id="neuralNetwork"></div>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">AI</div>
+                <div class="logo-text">AdGenAI Brain</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#workflow">Workflow</a></li>
+                    <li><a href="#tech">Tech Stack</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><button class="demo-btn buzzable">Request Access</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AUTONOMOUS TREND-FOLLOWING AI</h1>
+                <h2>Self-Learning System for Market Domination</h2>
+                <p>AdGenAI Brain detects emerging trends, validates opportunities, and autonomously builds MVPs—creating a perpetual motion machine for digital business generation.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-button cta-primary buzzable">Request Early Access</a>
+                    <a href="#" class="cta-button cta-secondary buzzable">View Case Studies</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="section section-dark" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI BRAIN CAPABILITIES</h2>
+                <p>Fully autonomous trend detection and business generation</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-radar"></i>
+                    </div>
+                    <h3>Real-Time Trend Detection</h3>
+                    <p>Scrapes Reddit, Discord, Twitter, and niche forums to identify emerging opportunities with "exploding soon" signals</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>NLP/LLM Analysis</h3>
+                    <p>Uses advanced AI to summarize, cluster, and score topics by demand signals and monetization potential</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3>Autonomous Validation</h3>
+                    <p>AI ranks ideas by demand, monetization potential, and competitive gap analysis</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Auto-MVP Builder</h3>
+                    <p>Generates landing pages, copy, logos, and deploys fully functional MVPs to Vercel/Netlify</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Self-Learning System</h3>
+                    <p>Tracks conversions and engagement to iteratively improve based on real performance data</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Modular Expansion</h3>
+                    <p>Plug-in architecture allows for new modules to be spun up or retired as trends change</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Workflow Section -->
+    <section class="section section-gradient" id="workflow">
+        <div class="container">
+            <div class="section-title">
+                <h2>AUTONOMOUS WORKFLOW</h2>
+                <p>How the AI Brain identifies and capitalizes on emerging trends</p>
+            </div>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Trend Detection</h3>
+                        <p>The AI continuously monitors digital platforms for emerging trends:</p>
+                        <ul>
+                            <li>Scrapes Reddit, Discord, Twitter, IndieHackers</li>
+                            <li>Identifies pain points and emerging business ideas</li>
+                            <li>Uses NLP to detect "take my money" phrases and demand signals</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Validation & Analysis</h3>
+                        <p>Each trend undergoes rigorous analysis:</p>
+                        <ul>
+                            <li>AI scores by upvotes, velocity, and monetization potential</li>
+                            <li>Competitive gap analysis identifies underserved markets</li>
+                            <li>Predictive modeling estimates potential ROI</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Autonomous MVP Generation</h3>
+                        <p>For validated ideas, the AI builds and deploys:</p>
+                        <ul>
+                            <li>Generates landing pages with optimized copy</li>
+                            <li>Creates logos and branding assets</li>
+                            <li>Sets up onboarding flows and payment integration</li>
+                            <li>Deploys to Vercel/Netlify infrastructure</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Self-Optimization</h3>
+                        <p>The system learns from performance data:</p>
+                        <ul>
+                            <li>Tracks conversions, engagement, and revenue</li>
+                            <li>Iteratively improves copy, design, and features</li>
+                            <li>Prunes underperforming concepts</li>
+                            <li>Doubles down on winning strategies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tech Stack Section -->
+    <section class="section section-dark" id="tech">
+        <div class="container">
+            <div class="section-title">
+                <h2>TECHNOLOGY STACK</h2>
+                <p>Cutting-edge technologies powering the autonomous AI brain</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                    <h3>Node.js/Next.js</h3>
+                    <p>For rapid site generation and deployment</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>LLM/NLP for scraping, clustering, and validation</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Vercel/Netlify</h3>
+                    <p>Instant deployment infrastructure</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Supabase/Firebase</h3>
+                    <p>Real-time data tracking and analytics</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>OpenAI/GPT-4</h3>
+                    <p>Copywriting, research, and decision logic</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Zapier/Make</h3>
+                    <p>Automation hooks and workflow integration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <h2>READY TO DEPLOY THE AI BRAIN?</h2>
+            <p>Join the waitlist for early access to the autonomous trend-following system that builds businesses while you sleep.</p>
+            <a href="#" class="cta-button cta-primary buzzable">Request Early Access</a>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AdGenAI Brain</h3>
+                    <p>Autonomous trend-following and business generation system.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Capabilities</h3>
+                    <ul>
+                        <li><a href="#">Trend Detection</a></li>
+                        <li><a href="#">Idea Validation</a></li>
+                        <li><a href="#">MVP Generation</a></li>
+                        <li><a href="#">Autonomous Optimization</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 AdGenAI Brain. All rights reserved. The future of autonomous business generation.
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Buzz effect for CTA/action buttons
+        document.querySelectorAll('.buzzable').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                this.classList.add('buzz');
+                setTimeout(() => this.classList.remove('buzz'), 120);
+            });
+        });
+        // Create neural network background
+        document.addEventListener('DOMContentLoaded', function() {
+            const neuralBackground = document.getElementById('neuralNetwork');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            // Create neural paths
+            for (let i = 0; i < 20; i++) {
+                const path = document.createElement('div');
+                path.className = 'neural-path';
+                const x1 = Math.random() * width;
+                const y1 = Math.random() * height;
+                const x2 = Math.random() * width;
+                const y2 = Math.random() * height;
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                path.style.width = length + 'px';
+                path.style.height = '1px';
+                path.style.left = x1 + 'px';
+                path.style.top = y1 + 'px';
+                path.style.transform = `rotate(${angle}deg)`;
+                neuralBackground.appendChild(path);
+            }
+            // Create neural nodes
+            for (let i = 0; i < 30; i++) {
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+                node.style.left = Math.random() * width + 'px';
+                node.style.top = Math.random() * height + 'px';
+                node.style.animationDelay = Math.random() * 2 + 's';
+                neuralBackground.appendChild(node);
+            }
+        });
+    </script>
+</body>
+</html>
