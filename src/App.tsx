@@ -13,6 +13,7 @@ import { OAuthCallback } from './components/OAuthCallback';
 import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
 import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
+import { BusinessAssistantTabs } from './components/BusinessAssistantTabs';
 
 const HomePage: React.FC = () => (
   <>
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<EnhancedDashboard />} />
+          <Route path="/brain" element={<div className="min-h-screen bg-gray-50 pt-20 py-12"><div className="max-w-7xl mx-auto px-4"><BusinessAssistantTabs /></div></div>} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/compare/:slug" element={<ComparisonPage />} />
           <Route path="/autopsy/:slug" element={<AutopsyPage />} />

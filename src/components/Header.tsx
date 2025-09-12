@@ -20,6 +20,9 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
             <Link to="/dashboard" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               Dashboard
             </Link>
+            <Link to="/brain" className="text-gray-600 hover:text-purple-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
+              🧠 Business Assistant
+            </Link>
             <Link to="/autopsy/templated-campaign-fatigue" className="text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 hover:scale-105 hover:text-shadow relative">
               AI Ad Autopsy
             </Link>
@@ -52,6 +55,9 @@ export const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => 
           <div className="px-4 py-4 space-y-4">
             <Link to="/dashboard" className="block text-gray-600 hover:text-primary-600 font-medium">
               Dashboard
+            </Link>
+            <Link to="/brain" className="block text-gray-600 hover:text-purple-600 font-medium">
+              🧠 Business Assistant
             </Link>
             <Link to="/pricing" className="block text-gray-600 hover:text-primary-600 font-medium">
               Pricing
