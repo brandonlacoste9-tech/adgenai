@@ -1,54 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AdGenAI — Generate Everything. Dominate Everywhere.</title>
   <meta name="description" content="AdGenAI: AI-powered ad creation, testing, and analytics." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2300ff88'/><text x='50' y='58' font-size='46' text-anchor='middle' font-family='Arial' fill='black'>AI</text></svg>">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="logo">AdGenAI</div>
-    <nav class="links">
-      <a href="#features">Features</a>
-      <a href="#contact">Contact</a>
-      <a class="cta-small" href="mailto:brandonlacoste9@gmail.com">Request a demo</a>
-    </nav>
-  </header>
-
-  <main class="hero">
-    <h1>Launch better ads, faster — with full observability</h1>
-    <p>Create, A/B test, and monitor ads in real time. Integrated with Grafana (metrics, logs, traces) and Supabase.</p>
-    <a class="btn primary" href="mailto:brandonlacoste9@gmail.com?subject=AdGenAI%20Demo%20Request">founder@yourco.com</a>
-    <div><span class="badge">P95 &lt; 400ms • Error &lt; 1%</span></div>
-  </main>
-
-  <section id="features" class="features">
-    <div class="card">
-      <h3>AI ad generation</h3>
-      <p>Turn briefs into on-brand variants in seconds. Export to your ad platforms.</p>
-    </div>
-    <div class="card">
-      <h3>One-click A/B tests</h3>
-      <p>Auto-launch experiments and pick winners with guardrails built-in.</p>
-    </div>
-    <div class="card">
-      <h3>Metrics • Logs • Traces</h3>
-      <p>Root-cause issues fast with Grafana + Loki + Tempo dashboards.</p>
-    </div>
-    <div class="card">
-      <h3>Scale the winners</h3>
-      <p>Promote winners automatically. Keep SLOs tight.</p>
-    </div>
-  </section>
-
-  <footer id="contact" class="footer">
-    <p>Questions? <a href="mailto:brandonlacoste9@gmail.com">brandonlacoste9@gmail.com</a></p>
-    <p><a href="https://github.com/brandonlacoste9-tech/adgenai" target="_blank" rel="noopener">GitHub</a></p>
-  </footer>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
