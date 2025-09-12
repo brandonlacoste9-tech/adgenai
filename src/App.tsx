@@ -32,6 +32,7 @@ function App() {
       <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <main>
         <Routes>
+          <Route path="/brain" element={<BrainPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<EnhancedDashboard />} />
           <Route path="/pricing" element={<Pricing />} />
@@ -41,7 +42,6 @@ function App() {
           <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="/launch" element={<LaunchCommand />} />
           <Route path="/red-carpet" element={<RedCarpetShowcase />} />
-          <Route path="/brain" element={<div>Brain Page Test</div>} />
           <Route path="*" element={<div>404 - Route not found</div>} />
         </Routes>
       </main>
