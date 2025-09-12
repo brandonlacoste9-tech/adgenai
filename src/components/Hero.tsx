@@ -54,8 +54,8 @@ export const Hero: React.FC = () => {
             className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
           >
             <button className="btn-primary text-lg px-10 py-5 group animate-glow">
-              <a href="/migration" className="flex items-center space-x-2">
-                <span>Start Free Migration</span>
+              <a href="/brain" className="flex items-center space-x-2">
+                <span>Launch NeuroSphere Brain</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </button>

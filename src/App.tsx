@@ -13,6 +13,7 @@ import { OAuthCallback } from './components/OAuthCallback';
 import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
 import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
+import { BrainPage } from './pages/BrainPage';
 
 const HomePage: React.FC = () => (
   <>
@@ -40,6 +41,8 @@ function App() {
           <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="/launch" element={<LaunchCommand />} />
           <Route path="/red-carpet" element={<RedCarpetShowcase />} />
+          <Route path="/brain" element={<div>Brain Page Test</div>} />
+          <Route path="*" element={<div>404 - Route not found</div>} />
         </Routes>
       </main>
       <Footer />
