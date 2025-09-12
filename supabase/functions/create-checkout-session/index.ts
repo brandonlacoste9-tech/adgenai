@@ -32,7 +32,16 @@ serve(async (req) => {
       throw new Error('Price ID is required')
     }
 
-    console.log('Creating checkout session for:', { priceId, userId, customerEmail })
+    // Get host from headers for brand-aware URLs
+    const host = req.headers.get('host') || req.headers.get('x-forwarded-host') || 'localhost:3000'
+    const proto = req.headers.get('x-forwarded-proto') || 'https'
+    const baseUrl = `${proto}://${host}`
+
+    // Use provided URLs or generate default brand-aware ones
+    const finalSuccessUrl = successUrl || `${baseUrl}/?upgraded=1`
+    const finalCancelUrl = cancelUrl || `${baseUrl}/?canceled=1`
+
+    console.log('Creating checkout session for:', { priceId, userId, customerEmail, host })
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -44,15 +53,17 @@ serve(async (req) => {
         },
       ],
       mode: 'subscription',
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+      success_url: finalSuccessUrl,
+      cancel_url: finalCancelUrl,
       customer_email: customerEmail,
       metadata: {
         userId: userId || '',
+        host: host,
       },
       subscription_data: {
         metadata: {
           userId: userId || '',
+          host: host,
         },
       },
       allow_promotion_codes: true,

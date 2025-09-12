@@ -17,6 +17,16 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+
+  /* Brand CSS Variables - these will be set by BrandingProvider */
+  :root {
+    --brand-bg: #05070F;
+    --brand-primary: #0A0E17;
+    --brand-accent: #00F3FF;
+    --brand-secondary: #9D00FF;
+    --brand-highlight: #FF00C8;
+    --brand-light: #FFFFFF;
+  }
 }
 
 @layer components {

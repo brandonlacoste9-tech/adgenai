@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adgenai.app/sitemap.xml
+# This robots.txt will be served for all domains by default
+# For dynamic robots.txt per domain, implement server-side logic
