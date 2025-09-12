@@ -15,6 +15,7 @@ import { OAuthCallback } from './components/OAuthCallback';
 import { Footer } from './components/Footer';
 import { LaunchCommand } from './pages/LaunchCommand';
 import { RedCarpetShowcase } from './pages/RedCarpetShowcase';
+import { BrandTestPage } from './pages/BrandTestPage';
 
 const HomePage: React.FC = () => (
   <>
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<EnhancedDashboard />} />
+          <Route path="/brand-test" element={<BrandTestPage />} />
           <Route path="/pricing" element={
             <>
               <BrandAwareSEO title="Pricing" description="Transparent pricing for AI-powered advertising solutions" />
