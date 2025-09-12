@@ -1,0 +1,252 @@
+/* Aurora Borealis Animation CSS for Northern Ventures */
+.aurora-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0a0f1c 0%, #1a1f3a 50%, #2a2f4a 100%);
+  z-index: -1;
+}
+
+.aurora-layer {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+
+.aurora-layer-1 {
+  background: linear-gradient(
+    45deg,
+    transparent 20%,
+    rgba(16, 185, 129, 0.4) 40%,
+    rgba(6, 182, 212, 0.5) 60%,
+    transparent 80%
+  );
+  animation: aurora-drift-1 12s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.aurora-layer-2 {
+  background: linear-gradient(
+    -45deg,
+    transparent 30%,
+    rgba(34, 197, 94, 0.3) 50%,
+    rgba(139, 92, 246, 0.4) 70%,
+    transparent 90%
+  );
+  animation: aurora-drift-2 15s ease-in-out infinite reverse;
+  animation-delay: -5s;
+}
+
+.aurora-layer-3 {
+  background: linear-gradient(
+    90deg,
+    transparent 10%,
+    rgba(6, 182, 212, 0.3) 30%,
+    rgba(168, 85, 247, 0.4) 50%,
+    rgba(16, 185, 129, 0.3) 70%,
+    transparent 90%
+  );
+  animation: aurora-drift-3 18s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+/* Aurora shimmer effect */
+.aurora-shimmer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: aurora-shimmer 8s ease-in-out infinite;
+}
+
+/* Stars overlay */
+.stars-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(2px 2px at 160px 30px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 200px 90px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 250px 50px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 300px 20px, rgba(255, 255, 255, 0.9), transparent);
+  background-repeat: repeat;
+  background-size: 400px 200px;
+  animation: stars-twinkle 6s ease-in-out infinite;
+}
+
+@keyframes aurora-drift-1 {
+  0%, 100% {
+    transform: translateX(-20%) translateY(-20%) rotate(-5deg) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateX(-10%) translateY(-30%) rotate(0deg) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(0%) translateY(-25%) rotate(3deg) scale(1.05);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateX(10%) translateY(-15%) rotate(-2deg) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes aurora-drift-2 {
+  0%, 100% {
+    transform: translateX(10%) translateY(15%) rotate(8deg) scale(1.1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translateX(-5%) translateY(25%) rotate(4deg) scale(1);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateX(-15%) translateY(10%) rotate(-3deg) scale(1.15);
+    opacity: 0.6;
+  }
+}
+
+@keyframes aurora-drift-3 {
+  0%, 100% {
+    transform: translateX(5%) translateY(-10%) rotate(-3deg) scale(1);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translateX(15%) translateY(5%) rotate(2deg) scale(1.2);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translateX(-10%) translateY(-5%) rotate(-6deg) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes aurora-shimmer {
+  0%, 100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+}
+
+@keyframes stars-twinkle {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+/* Additional particle effects for extra magic */
+.aurora-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.aurora-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.8) 0%, transparent 100%);
+  border-radius: 50%;
+  animation: particle-float 10s ease-in-out infinite;
+}
+
+.aurora-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.aurora-particle:nth-child(2) { left: 20%; animation-delay: -2s; }
+.aurora-particle:nth-child(3) { left: 30%; animation-delay: -4s; }
+.aurora-particle:nth-child(4) { left: 40%; animation-delay: -6s; }
+.aurora-particle:nth-child(5) { left: 50%; animation-delay: -8s; }
+.aurora-particle:nth-child(6) { left: 60%; animation-delay: -1s; }
+.aurora-particle:nth-child(7) { left: 70%; animation-delay: -3s; }
+.aurora-particle:nth-child(8) { left: 80%; animation-delay: -5s; }
+.aurora-particle:nth-child(9) { left: 90%; animation-delay: -7s; }
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(80vh) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(20vh) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0vh) scale(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .aurora-layer {
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+  }
+  
+  .aurora-layer-1,
+  .aurora-layer-2,
+  .aurora-layer-3 {
+    filter: blur(1px);
+  }
+  
+  .stars-overlay {
+    background-size: 200px 100px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-layer-1,
+  .aurora-layer-2,
+  .aurora-layer-3,
+  .aurora-shimmer,
+  .stars-overlay,
+  .aurora-particle {
+    animation: none;
+  }
+  
+  .aurora-layer {
+    opacity: 0.4;
+  }
+}

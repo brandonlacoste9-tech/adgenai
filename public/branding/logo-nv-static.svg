@@ -1,0 +1,101 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Static aurora gradients -->
+    <linearGradient id="staticAuroraGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+
+    <linearGradient id="staticAuroraGradient2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="staticGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" 
+          fill="none" 
+          stroke="url(#staticAuroraGradient1)" 
+          stroke-width="3" 
+          opacity="0.7"/>
+
+  <!-- Northern lights background waves -->
+  <path d="M20,100 Q70,80 120,100 T180,100" 
+        fill="none" 
+        stroke="url(#staticAuroraGradient2)" 
+        stroke-width="2" 
+        opacity="0.4"/>
+
+  <path d="M20,120 Q70,140 120,120 T180,120" 
+        fill="none" 
+        stroke="url(#staticAuroraGradient1)" 
+        stroke-width="2" 
+        opacity="0.3"/>
+
+  <!-- Letter N -->
+  <g filter="url(#staticGlow)">
+    <path d="M45,60 L45,140 L50,140 L50,75 L75,140 L80,140 L80,60 L75,60 L75,125 L50,60 Z" 
+          fill="url(#staticAuroraGradient1)"
+          stroke="url(#staticAuroraGradient2)"
+          stroke-width="1"/>
+  </g>
+
+  <!-- Letter V -->
+  <g filter="url(#staticGlow)">
+    <path d="M120,60 L135,140 L140,140 L155,60 L150,60 L137.5,130 L125,60 Z" 
+          fill="url(#staticAuroraGradient1)"
+          stroke="url(#staticAuroraGradient2)"
+          stroke-width="1"/>
+  </g>
+
+  <!-- Central aurora orb -->
+  <circle cx="100" cy="100" r="27" 
+          fill="url(#staticAuroraGradient2)" 
+          opacity="0.4"/>
+
+  <!-- Static aurora particles -->
+  <circle cx="60" cy="60" r="2" fill="#10b981" opacity="0.8"/>
+  <circle cx="140" cy="140" r="2" fill="#06b6d4" opacity="0.8"/>
+  <circle cx="150" cy="70" r="1.5" fill="#a855f7" opacity="0.9"/>
+  <circle cx="50" cy="130" r="1.5" fill="#22c55e" opacity="0.7"/>
+
+  <!-- Constellation lines -->
+  <line x1="60" y1="60" x2="100" y2="100" 
+        stroke="url(#staticAuroraGradient1)" 
+        stroke-width="0.5" 
+        opacity="0.5"/>
+
+  <line x1="140" y1="140" x2="100" y2="100" 
+        stroke="url(#staticAuroraGradient2)" 
+        stroke-width="0.5" 
+        opacity="0.5"/>
+
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="95" 
+          fill="none" 
+          stroke="url(#staticAuroraGradient1)" 
+          stroke-width="1" 
+          opacity="0.3"/>
+
+  <!-- Company name text -->
+  <text x="100" y="170" 
+        text-anchor="middle" 
+        font-family="Inter, sans-serif" 
+        font-size="16" 
+        font-weight="600" 
+        fill="url(#staticAuroraGradient1)"
+        opacity="0.8"
+        class="company-text">
+    NORTHERN VENTURES
+  </text>
+</svg>
