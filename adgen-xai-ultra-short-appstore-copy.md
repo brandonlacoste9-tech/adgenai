@@ -1,0 +1,1 @@
+Adgen XAI is the AI marketing platform to create, launch, and optimize campaigns fast. Instantly generate ads, design social media creatives, automate workflows, and track performance with real-time analytics. Beautiful, intelligent, and built for every channel—experience smarter marketing with Adgen XAI.
