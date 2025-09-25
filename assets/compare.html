@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Compare</title>
+<link href="assets/Banner.css" rel="stylesheet"><link href="assets/grok_theme.css" rel="stylesheet">
+<style>body{display:flex;gap:20px;background:#000;padding:20px}.col{width:1080px;flex-shrink:0}</style>
+<script>
+  // C: feature-flag to hide Grok column entirely
+  const ENABLE_GROK = (new URLSearchParams(location.search).get('grok') ?? '').toLowerCase()!=='off';
+  window.addEventListener('DOMContentLoaded',()=>{if(!ENABLE_GROK) document.getElementById('grok-col').remove();});
+</script></head>
+<body>
+  <div class="col">
+    <div class="banner"><div class="particles"></div><div class="pulse"></div>
+      <div class="silhouette"></div><div class="text-overlay">DataForge Fitness Forge</div>
+    </div>
+  </div>
+  <div class="col" id="grok-col">
+    <div class="grok-banner">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="assets/grok_logo.svg" width="120" alt="Grok-ish logo">
+        <div style="font-family:Orbitron, sans-serif;font-size:40px">Grok-ish Benchmark</div>
+      </div>
+      <p style="margin-top:22px;color:#cfdff3">Contrast mockup for A/B screenshots and social copy.</p>
+      <div class="grok-badge">Benchmark Mode</div>
+    </div>
+  </div>
+</body></html>

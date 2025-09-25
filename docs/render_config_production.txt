@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: your-app-name       # Replace with your actual app name
+    env: python
+    plan: pro                # Choose a paid plan for production
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: STRIPE_SECRET_KEY
+        fromSecret: STRIPE_SECRET_KEY
+      - key: STRIPE_WEBHOOK_SECRET
+        fromSecret: STRIPE_WEBHOOK_SECRET
+      - key: BACKEND_DOMAIN
+        value: "https://your-app-name.onrender.com"
+      - key: SUPABASE_URL
+        fromSecret: SUPABASE_URL
+      - key: SUPABASE_KEY
+        fromSecret: SUPABASE_KEY
+      - key: REDIS_URL
+        fromSecret: REDIS_URL
+      - key: COINBASE_API_KEY
+        fromSecret: COINBASE_API_KEY
+      - key: COINBASE_WEBHOOK_SECRET
+        fromSecret: COINBASE_WEBHOOK_SECRET

@@ -1,0 +1,5 @@
+{
+  "name": "grok-tokens",
+  "colors": { "background": "#07080a", "accent": "#ff6b6b", "accentAlt": "#ffb86b", "text": "#e6eef8" },
+  "typography": { "brandFont": "Orbitron, sans-serif", "titleSize": "48px", "bodySize": "16px" }
+}

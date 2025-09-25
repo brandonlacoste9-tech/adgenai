@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="400" height="120">
+  <defs><linearGradient id="g1" x1="0" x2="1">
+    <stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#ffb86b"/>
+  </linearGradient></defs>
+  <rect rx="8" width="200" height="60" fill="#0b0f14"/>
+  <g transform="translate(12,10)" fill="url(#g1)"><path d="M0 30 L12 0 L24 30 Z"/></g>
+  <text x="48" y="38" font-family="Orbitron, sans-serif" font-size="20" fill="#fff">Grok-ish</text>
+</svg>

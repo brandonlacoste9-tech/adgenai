@@ -1,0 +1,16 @@
+# render.yaml — Render service definition for FastAPI app
+services:
+  - type: web
+    name: your-app-name       # Change to whatever you want on Render
+    env: python
+    plan: free                # or a paid plan
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: STRIPE_SECRET_KEY
+        fromSecret: STRIPE_SECRET_KEY
+      - key: STRIPE_WEBHOOK_SECRET
+        fromSecret: STRIPE_WEBHOOK_SECRET
+      - key: BACKEND_DOMAIN
+        value: "https://your-app-name.onrender.com"

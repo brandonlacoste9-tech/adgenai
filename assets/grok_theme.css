@@ -1,0 +1,8 @@
+:root{
+  --grok-bg:#07080a;--grok-accent:#ff6b6b;--grok-accent-2:#ffb86b;--grok-text:#e6eef8
+}
+.grok-banner{background:linear-gradient(90deg,var(--grok-bg),#0f1113);color:var(--grok-text);
+  padding:40px;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.grok-badge{display:inline-flex;align-items:center;gap:12px;padding:8px 14px;
+  background:linear-gradient(45deg,var(--grok-accent),var(--grok-accent-2));
+  color:#0b0f14;font-weight:700;border-radius:999px}

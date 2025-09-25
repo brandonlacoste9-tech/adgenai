@@ -55,6 +55,17 @@
   - No unnecessary prompts, no asking teammates  
   - Always report PR number, status after any operation  
 
+  ## Stripe Webhook / MCP Instructions
+
+  1. Add Stripe values to `.env`:
+    ```env
+    STRIPE_SECRET_KEY=sk_test_…
+    STRIPE_WEBHOOK_SECRET=whsec_…
+    ```
+  2. Webhook logic lives in `supabase/functions/stripe-webhook/index.ts` (or `.js`)  
+  3. To test locally, use **Stripe CLI** to forward events to your local dev server  
+  4. If you later integrate Stripe MCP server, use the `@stripe/mcp` package or config in agent tool definitions  
+
 ---
 
 ## 3. Conventions & Patterns

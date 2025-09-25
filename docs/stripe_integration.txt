@@ -1,0 +1,19 @@
+# Stripe Integration Overview
+
+## Keys & Config
+- `.env.template` includes:
+  - `STRIPE_SECRET_KEY`
+  - `STRIPE_WEBHOOK_SECRET`
+  - `BACKEND_DOMAIN`
+
+## Subscription Flow
+- Stripe subscription product setup
+- Webhooks for:
+  - `invoice.payment_succeeded`
+  - `customer.subscription.created`
+  - `customer.subscription.deleted`
+
+## Metered Billing
+- Usage recorded in Stripe via:
+  - `$0.05/GB forged`
+  - Usage reported via backend async job
