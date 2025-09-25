@@ -1,0 +1,3 @@
+Stripe Setup:
+- STRIPE_SECRET_KEY: Linked to your Stripe account?
+- STRIPE_WEBHOOK_SECRET: Connected to /stripe/webhook?
