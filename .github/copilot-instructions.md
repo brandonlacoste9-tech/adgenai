@@ -35,6 +35,7 @@ This codebase powers Adgenai's AI-driven advertising solutions, including dashbo
 ## Environment & Config
 
 - **Environment variables:** Use `.env` file (never committed - already in `.gitignore`)
+- **Template:** Use `.env.example` as a reference for required variables
 - **Required env vars:**
   - `VITE_SUPABASE_URL` - Supabase project URL
   - `VITE_SUPABASE_ANON_KEY` - Supabase anonymous key
