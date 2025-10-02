@@ -53,3 +53,54 @@ export interface PerformancePrediction {
   confidence: number;
   insights: string[];
 }
+
+// Fitness Social Platform Types
+export interface Badge {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  rarity: 'common' | 'rare' | 'legendary';
+  requirements: string;
+  rewards: {
+    usdc?: number;
+    xp?: number;
+    unlocks?: string[];
+  };
+}
+
+export interface Post {
+  id: string;
+  userId: string;
+  content: string;
+  mediaUrl?: string;
+  mediaType?: 'image' | 'video';
+  badges: string[];
+  streakCount: number;
+  cryptoEarned: number;
+  vibe: 'bro' | 'influencer';
+  createdAt: Date;
+  engagement: {
+    likes: number;
+    comments: number;
+    shares: number;
+  };
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  bio: string;
+  vibe: 'bro' | 'influencer';
+  badges: Badge[];
+  stats: {
+    followers: number;
+    following: number;
+    posts: number;
+    totalCryptoEarned: number;
+    currentStreak: number;
+    longestStreak: number;
+  };
+}
