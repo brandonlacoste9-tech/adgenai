@@ -1,0 +1,36 @@
+name: Netlify DNS Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: 'Domain to check (e.g., adgenxai.com)'
+        required: false
+        default: 'adgenxai.com'
+        type: string
+
+jobs:
+  dns-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install DNS tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dnsutils curl openssl
+      
+      - name: Run Netlify DNS and HTTP Check
+        run: |
+          chmod +x ./tools/check_netlify.sh
+          ./tools/check_netlify.sh "${{ inputs.domain }}"
+      
+      - name: Summary
+        run: |
+          echo "### 🔍 Netlify DNS & HTTP Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Domain checked:** \`${{ inputs.domain }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the job logs above for detailed DNS and HTTP verification results." >> $GITHUB_STEP_SUMMARY
