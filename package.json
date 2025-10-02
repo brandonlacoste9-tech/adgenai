@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-health.js",
     "build": "vite build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "preview": "vite preview",
