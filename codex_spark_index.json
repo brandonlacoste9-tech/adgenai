@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "codex": "spark-registry",
+  "timestamp": "2025-10-19T00:00:00Z",
+  "description": "Registry of Spark-born applications and rituals inscribed through Cursor",
+  "apps": [
+    {
+      "id": "adgenai",
+      "name": "AdGen AI",
+      "type": "web-app",
+      "status": "active",
+      "description": "AI-powered ad generation platform with ML performance prediction",
+      "tech_stack": ["React", "TypeScript", "Vite", "Supabase", "Stripe", "TensorFlow.js"],
+      "deployed_url": "https://foundryai.com",
+      "features": [
+        "CMS automation",
+        "Attribution analytics",
+        "Performance prediction",
+        "Fraud detection",
+        "Stripe integration"
+      ],
+      "rituals": [
+        "analytics-tracker",
+        "attribution-analysis",
+        "cms-automation-api",
+        "fraud-detection",
+        "ml-performance-api"
+      ],
+      "created_at": "2025-10-19T00:00:00Z",
+      "last_updated": "2025-10-19T00:00:00Z"
+    }
+  ],
+  "metadata": {
+    "total_apps": 1,
+    "active_rituals": 11,
+    "governance": "codex-lineage-preserved",
+    "executor": "cursor-local-scribe",
+    "deployment_ground": "netlify"
+  }
+}
