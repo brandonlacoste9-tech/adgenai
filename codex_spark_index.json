@@ -1,0 +1,16 @@
+[
+  {
+    "name": "swarm-dashboard",
+    "description": "Dashboard with metrics and Slack alerts",
+    "created_at": "2025-10-19T12:30:00Z",
+    "repo": "brandonlacoste9-tech/adgenxai-2.0",
+    "deploy_url": "https://swarm-dashboard.netlify.app"
+  },
+  {
+    "name": "task-tracker",
+    "description": "Task tracker with GitHub auth and Cosmos DB",
+    "created_at": "2025-10-18T15:00:00Z",
+    "repo": "brandonlacoste9-tech/adgenxai-2.0",
+    "deploy_url": "https://task-tracker.netlify.app"
+  }
+]
