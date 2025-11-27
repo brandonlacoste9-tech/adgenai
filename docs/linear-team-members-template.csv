@@ -1,0 +1,31 @@
+email,name,role,teams
+# Engineering Team
+engineering-lead@adgenai.com,Engineering Lead,admin,Engineering
+frontend-dev1@adgenai.com,Frontend Developer 1,member,Engineering
+frontend-dev2@adgenai.com,Frontend Developer 2,member,Engineering
+backend-dev1@adgenai.com,Backend Developer 1,member,Engineering
+devops@adgenai.com,DevOps Engineer,member,Engineering
+
+# Product Team
+product-manager@adgenai.com,Product Manager,admin,Product
+ux-designer@adgenai.com,UX Designer,member,Product
+ui-designer@adgenai.com,UI Designer,member,Product
+product-analyst@adgenai.com,Product Analyst,member,Product
+
+# Marketing & Growth Team
+growth-lead@adgenai.com,Growth Lead,admin,Marketing & Growth
+content-marketer@adgenai.com,Content Marketer,member,Marketing & Growth
+seo-specialist@adgenai.com,SEO Specialist,member,Marketing & Growth
+agency-manager@adgenai.com,Agency Partnership Manager,member,Marketing & Growth
+
+# Customer Success Team
+cs-lead@adgenai.com,Customer Success Lead,admin,Customer Success
+support-engineer1@adgenai.com,Support Engineer 1,member,Customer Success
+support-engineer2@adgenai.com,Support Engineer 2,member,Customer Success
+onboarding-specialist@adgenai.com,Onboarding Specialist,member,Customer Success
+
+# Data & Analytics Team
+data-science-lead@adgenai.com,Data Science Lead,admin,Data & Analytics
+ml-engineer1@adgenai.com,ML Engineer 1,member,Data & Analytics
+ml-engineer2@adgenai.com,ML Engineer 2,member,Data & Analytics
+analytics-engineer@adgenai.com,Analytics Engineer,member,Data & Analytics
