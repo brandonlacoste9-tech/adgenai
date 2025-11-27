@@ -29,13 +29,17 @@ This document consolidates 6 months of intensive development work across multipl
 **Tech Stack**: React, TypeScript, Supabase, TensorFlow.js, Stripe
 
 ### Related Projects & Concepts
-Based on repository analysis, the following concepts are referenced:
+Based on repository analysis and project ecosystem, the following projects are part of the broader vision:
 
-1. **NeuroSphere** - Immortal blueprint architecture for unicorn-grade platforms
-2. **Beehive/Colony/Sensory Cortex** - Distributed intelligence concepts (referenced in strategy docs)
-3. **Bee Agents** - Multi-agent AI research and automation
-4. **Long-Cat Video EMU** - Video generation/processing capabilities
-5. **Open Source Components** - Community tools and shared resources
+1. **Kolini** - [Connected project - details in BRANDON_LEROUX_PROJECT_ECOSYSTEM.md]
+2. **NeuroSphere** - Immortal blueprint architecture for unicorn-grade platforms
+3. **Beehive/Colony OS** - Distributed intelligence and swarm coordination system
+4. **Sensory Cortex** - Neural processing system for creative analysis
+5. **Bee Agents** - Multi-agent AI research and automation framework
+6. **Long-Cat Video EMU** - Video generation/processing capabilities
+7. **Open Source Components** - Community tools and shared resources
+
+**See `/workspace/BRANDON_LEROUX_PROJECT_ECOSYSTEM.md` for complete ecosystem map and project interconnections.**
 
 ---
 
