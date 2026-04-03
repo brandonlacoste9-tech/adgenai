@@ -1,0 +1,31 @@
+import { NextResponse } from "next/server";
+import { storage } from "@/lib/storage";
+
+export async function GET() {
+  const token = storage.getGitHubToken();
+  if (!token) return NextResponse.json({ error: "Not connected" }, { status: 401 });
+
+  try {
+    const res = await fetch("https://api.github.com/user/repos?sort=updated&per_page=50&affiliation=owner", {
+      headers: { Authorization: `Bearer ${token.accessToken}`, "User-Agent": "adgenai" },
+    });
+    const repos = (await res.json()) as Array<{
+      name: string; full_name: string; private: boolean;
+      default_branch: string; updated_at: string; description: string | null; html_url: string;
+    }>;
+    return NextResponse.json(
+      repos.map((r) => ({
+        name: r.name,
+        fullName: r.full_name,
+        private: r.private,
+        defaultBranch: r.default_branch,
+        updatedAt: r.updated_at,
+        description: r.description,
+        url: r.html_url,
+      }))
+    );
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Failed";
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
+}
