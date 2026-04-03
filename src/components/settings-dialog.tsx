@@ -286,16 +286,16 @@ export function SettingsDialog({ open, onClose, settings, onSettingsChange }: Se
                       key={t.id}
                       onClick={() => setLocal({ ...local, appTheme: t.id })}
                       className={cn(
-                        "flex flex-col items-center gap-1.5 px-2 py-2.5 rounded-lg border transition-colors",
+                        "flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-colors",
                         local.appTheme === t.id ? "border-foreground bg-accent" : "border-border hover:bg-accent/50"
                       )}
                     >
-                      <div className="flex w-full h-5 rounded overflow-hidden border border-border/50">
+                      <div className="flex w-full h-6 rounded-md overflow-hidden border border-border/50">
                         <div className="flex-1" style={{ background: t.background }} />
                         <div className="flex-1" style={{ background: t.card }} />
                         <div className="flex-1" style={{ background: t.accent }} />
                       </div>
-                      <span className="text-[10px] text-muted-foreground leading-tight text-center">{t.name}</span>
+                      <span className="text-[10px] text-muted-foreground leading-tight text-center truncate w-full">{t.name}</span>
                     </button>
                   ))}
                 </div>

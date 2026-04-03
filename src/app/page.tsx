@@ -55,7 +55,7 @@ export default function Home() {
 
   activeSessionIdRef.current = activeSessionId;
 
-  // Apply app theme via CSS custom properties
+  // Apply app theme via CSS variables
   useEffect(() => {
     const theme = APP_THEMES.find((t) => t.id === settings.appTheme) ?? APP_THEMES[0];
     const root = document.documentElement;
@@ -134,7 +134,7 @@ export default function Home() {
     });
   }, [settings.model, refreshSessions]);
 
-  // Keyboard shortcuts: Cmd+N (new project), Cmd+, (settings), Esc (exit fullscreen), f (toggle fullscreen)
+  // Keyboard shortcuts: Cmd+N (new project), Cmd+, (settings), Escape (exit fullscreen), f (toggle fullscreen)
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "n") {
@@ -149,13 +149,13 @@ export default function Home() {
         setFullscreen(false);
       }
       const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
-      if (e.key === "f" && !e.metaKey && !e.ctrlKey && !e.altKey && tag !== "input" && tag !== "textarea" && tag !== "select" && activeSessionIdRef.current) {
+      if (e.key === "f" && !e.metaKey && !e.ctrlKey && !e.altKey && tag !== "input" && tag !== "textarea" && tag !== "select" && activeSessionId) {
         setFullscreen((prev) => !prev);
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [handleNewChat, fullscreen]);
+  }, [handleNewChat, fullscreen, activeSessionId]);
 
   const handleNewSessionForLanding = useCallback((): string => {
     const id = crypto.randomUUID();
@@ -390,7 +390,24 @@ export default function Home() {
 
         {/* Main content */}
         <div className="flex-1 overflow-hidden">
-          {showPreview ? (
+          {fullscreen && showPreview ? (
+            <PreviewPanel
+              versions={versions}
+              activeVersionIndex={activeVersionIndex}
+              onVersionChange={setActiveVersionIndex}
+              isGenerating={isGenerating}
+              onPushToGitHub={() => setGithubDialogOpen(true)}
+              onDeploy={() => setDeployDialogOpen(true)}
+              onDownloadZip={handleDownloadZip}
+              onDownloadHtml={handleDownloadHtml}
+              onCodeEdit={handleCodeEdit}
+              onRestoreVersion={handleRestoreVersion}
+              previewTheme={settings.previewTheme}
+              onPreviewThemeChange={(id) => setSettings({ ...settings, previewTheme: id })}
+              fullscreen
+              onToggleFullscreen={() => setFullscreen(false)}
+            />
+          ) : showPreview ? (
             <div className="flex h-full">
               {!fullscreen && (
                 <div className="w-[38%] min-w-[300px] max-w-[600px] border-r border-border">
@@ -429,8 +446,8 @@ export default function Home() {
                   onRestoreVersion={handleRestoreVersion}
                   previewTheme={settings.previewTheme}
                   onPreviewThemeChange={(id) => setSettings({ ...settings, previewTheme: id })}
-                  fullscreen={fullscreen}
-                  onToggleFullscreen={() => setFullscreen((prev) => !prev)}
+                  fullscreen={false}
+                  onToggleFullscreen={() => setFullscreen(true)}
                 />
               </div>
             </div>

@@ -175,7 +175,7 @@ export function PreviewPanel({
   onRestoreVersion,
   previewTheme,
   onPreviewThemeChange,
-  fullscreen,
+  fullscreen = false,
   onToggleFullscreen,
 }: PreviewPanelProps) {
   const [activeTab, setActiveTab] = useState<Tab>("preview");
@@ -232,7 +232,7 @@ export function PreviewPanel({
 
   if (versions.length === 0 && !isGenerating) {
     return (
-      <div className="flex flex-col h-full items-center justify-center bg-background border-l border-border">
+      <div className={cn("flex flex-col h-full items-center justify-center bg-background", !fullscreen && "border-l border-border")}>
         <div className="text-center px-8">
           <div className="w-16 h-16 rounded-2xl border border-border bg-card flex items-center justify-center mx-auto mb-4">
             <Layers className="w-7 h-7 text-muted-foreground" />
@@ -249,7 +249,7 @@ export function PreviewPanel({
   return (
     <div className={cn("flex flex-col bg-background", fullscreen ? "h-screen" : "h-full border-l border-border")}>
       {/* Toolbar */}
-      <div className="flex items-center gap-2 px-3 py-2 border-b border-border shrink-0 flex-wrap">
+      <div className={cn("flex items-center gap-2 px-3 py-2 border-b border-border shrink-0 flex-wrap", fullscreen && "bg-background/90 backdrop-blur-sm")}>
         {/* Tab switcher */}
         <div className="flex items-center bg-muted rounded-lg p-0.5 gap-0.5">
           {([
@@ -416,7 +416,11 @@ export function PreviewPanel({
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
           {onToggleFullscreen && (
-            <button onClick={onToggleFullscreen} className="w-7 h-7 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title={fullscreen ? "Exit fullscreen (Esc)" : "Fullscreen (F)"}>
+            <button
+              onClick={onToggleFullscreen}
+              className="w-7 h-7 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              title={fullscreen ? "Exit fullscreen (Esc)" : "Fullscreen (F)"}
+            >
               {fullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
             </button>
           )}
