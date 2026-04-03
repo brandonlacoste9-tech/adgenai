@@ -20,7 +20,7 @@ import {
   startGitHubAuth,
 } from "@/lib/api-client";
 import type { Session, Message, CodeVersion, GitHubStatus, AppSettings } from "@/lib/types";
-import { DEFAULT_SETTINGS } from "@/lib/types";
+import { DEFAULT_SETTINGS, APP_THEMES } from "@/lib/types";
 import { Zap, Pencil, Check, X } from "lucide-react";
 
 function extractCodeBlock(text: string): string | null {
@@ -46,6 +46,7 @@ export default function Home() {
   const [githubDialogOpen, setGithubDialogOpen] = useState(false);
   const [deployDialogOpen, setDeployDialogOpen] = useState(false);
   const [githubStatus, setGithubStatus] = useState<GitHubStatus | undefined>();
+  const [fullscreen, setFullscreen] = useState(false);
   const [editingTitle, setEditingTitle] = useState(false);
   const [editTitleValue, setEditTitleValue] = useState("");
   const titleInputRef = useRef<HTMLInputElement>(null);
@@ -54,20 +55,34 @@ export default function Home() {
 
   activeSessionIdRef.current = activeSessionId;
 
-  // Apply theme
+  // Apply app theme via CSS custom properties
   useEffect(() => {
+    const theme = APP_THEMES.find((t) => t.id === settings.appTheme) ?? APP_THEMES[0];
     const root = document.documentElement;
-    if (settings.theme === "system") {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      root.classList.toggle("dark", prefersDark);
-      const listener = (e: MediaQueryListEvent) => root.classList.toggle("dark", e.matches);
-      const mq = window.matchMedia("(prefers-color-scheme: dark)");
-      mq.addEventListener("change", listener);
-      return () => mq.removeEventListener("change", listener);
-    } else {
-      root.classList.toggle("dark", settings.theme === "dark");
-    }
-  }, [settings.theme]);
+    root.style.setProperty("--background", theme.background);
+    root.style.setProperty("--foreground", theme.foreground);
+    root.style.setProperty("--card", theme.card);
+    root.style.setProperty("--card-foreground", theme.cardForeground);
+    root.style.setProperty("--border", theme.border);
+    root.style.setProperty("--muted", theme.muted);
+    root.style.setProperty("--muted-foreground", theme.mutedForeground);
+    root.style.setProperty("--accent", theme.accent);
+    root.style.setProperty("--accent-foreground", theme.accentForeground);
+    root.style.setProperty("--primary", theme.primary);
+    root.style.setProperty("--primary-foreground", theme.primaryForeground);
+    root.style.setProperty("--ring", theme.ring);
+    root.style.setProperty("--destructive", theme.destructive);
+    root.style.setProperty("--destructive-foreground", theme.destructiveForeground);
+    root.style.setProperty("--emerald", theme.emerald);
+    root.style.setProperty("--scroll-thumb", theme.scrollThumb);
+    root.style.setProperty("--scroll-thumb-hover", theme.scrollThumbHover);
+    root.style.setProperty("--token-keyword", theme.tokenKeyword);
+    root.style.setProperty("--token-string", theme.tokenString);
+    root.style.setProperty("--token-comment", theme.tokenComment);
+    root.style.setProperty("--token-tag", theme.tokenTag);
+    root.style.setProperty("--token-function", theme.tokenFunction);
+    root.style.setProperty("--token-number", theme.tokenNumber);
+  }, [settings.appTheme]);
 
   // Load sessions on mount
   useEffect(() => {
@@ -119,7 +134,7 @@ export default function Home() {
     });
   }, [settings.model, refreshSessions]);
 
-  // Keyboard shortcuts: Cmd+N (new project), Cmd+, (settings)
+  // Keyboard shortcuts: Cmd+N (new project), Cmd+, (settings), Esc (exit fullscreen), f (toggle fullscreen)
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "n") {
@@ -130,10 +145,17 @@ export default function Home() {
         e.preventDefault();
         setSettingsOpen(true);
       }
+      if (e.key === "Escape" && fullscreen) {
+        setFullscreen(false);
+      }
+      const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
+      if (e.key === "f" && !e.metaKey && !e.ctrlKey && !e.altKey && tag !== "input" && tag !== "textarea" && tag !== "select" && activeSessionIdRef.current) {
+        setFullscreen((prev) => !prev);
+      }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [handleNewChat]);
+  }, [handleNewChat, fullscreen]);
 
   const handleNewSessionForLanding = useCallback((): string => {
     const id = crypto.randomUUID();
@@ -319,74 +341,80 @@ export default function Home() {
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
-      <Sidebar
-        sessions={sessions}
-        activeSessionId={activeSessionId}
-        collapsed={settings.sidebarCollapsed}
-        onSelectSession={handleSelectSession}
-        onNewChat={handleNewChat}
-        onDeleteSession={handleDeleteSession}
-        onToggleStar={handleToggleStar}
-        onToggleCollapse={() => setSettings({ ...settings, sidebarCollapsed: !settings.sidebarCollapsed })}
-        onOpenSettings={() => setSettingsOpen(true)}
-      />
+      {!fullscreen && (
+        <Sidebar
+          sessions={sessions}
+          activeSessionId={activeSessionId}
+          collapsed={settings.sidebarCollapsed}
+          onSelectSession={handleSelectSession}
+          onNewChat={handleNewChat}
+          onDeleteSession={handleDeleteSession}
+          onToggleStar={handleToggleStar}
+          onToggleCollapse={() => setSettings({ ...settings, sidebarCollapsed: !settings.sidebarCollapsed })}
+          onOpenSettings={() => setSettingsOpen(true)}
+        />
+      )}
 
       <div className="flex flex-col flex-1 min-w-0">
-        {/* Topbar */}
-        <header className="flex items-center justify-between h-12 px-4 border-b border-border bg-background shrink-0">
-          <div className="flex items-center gap-2">
-            <Zap className="w-3.5 h-3.5 text-foreground" />
-            {editingTitle ? (
-              <div className="flex items-center gap-1">
-                <input
-                  ref={titleInputRef}
-                  value={editTitleValue}
-                  onChange={(e) => setEditTitleValue(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter") commitTitle(); if (e.key === "Escape") setEditingTitle(false); }}
-                  className="bg-muted border border-ring rounded px-2 py-0.5 text-sm text-foreground outline-none w-48"
-                  autoFocus
-                />
-                <button onClick={commitTitle} className="p-1 text-muted-foreground hover:text-foreground"><Check className="w-3.5 h-3.5" /></button>
-                <button onClick={() => setEditingTitle(false)} className="p-1 text-muted-foreground hover:text-foreground"><X className="w-3.5 h-3.5" /></button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1">
-                <span className="text-foreground font-medium text-sm">{activeSession?.title ?? "AdGenAI"}</span>
-                {activeSession && (
-                  <button onClick={startEditTitle} className="p-1 text-muted-foreground hover:text-foreground opacity-0 hover:opacity-100 transition-opacity">
-                    <Pencil className="w-3 h-3" />
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        </header>
+        {/* Topbar — hidden in fullscreen */}
+        {!fullscreen && (
+          <header className="flex items-center justify-between h-12 px-4 border-b border-border bg-background shrink-0">
+            <div className="flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-foreground" />
+              {editingTitle ? (
+                <div className="flex items-center gap-1">
+                  <input
+                    ref={titleInputRef}
+                    value={editTitleValue}
+                    onChange={(e) => setEditTitleValue(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") commitTitle(); if (e.key === "Escape") setEditingTitle(false); }}
+                    className="bg-muted border border-ring rounded px-2 py-0.5 text-sm text-foreground outline-none w-48"
+                    autoFocus
+                  />
+                  <button onClick={commitTitle} className="p-1 text-muted-foreground hover:text-foreground"><Check className="w-3.5 h-3.5" /></button>
+                  <button onClick={() => setEditingTitle(false)} className="p-1 text-muted-foreground hover:text-foreground"><X className="w-3.5 h-3.5" /></button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1">
+                  <span className="text-foreground font-medium text-sm">{activeSession?.title ?? "AdGenAI"}</span>
+                  {activeSession && (
+                    <button onClick={startEditTitle} className="p-1 text-muted-foreground hover:text-foreground opacity-0 hover:opacity-100 transition-opacity">
+                      <Pencil className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </header>
+        )}
 
         {/* Main content */}
         <div className="flex-1 overflow-hidden">
           {showPreview ? (
             <div className="flex h-full">
-              <div className="w-[38%] min-w-[300px] max-w-[600px] border-r border-border">
-                <ChatPanel
-                  key={activeSessionId}
-                  sessionId={activeSessionId}
-                  messages={messages}
-                  onStreamComplete={handleStreamComplete}
-                  onStreamStart={handleStreamStart}
-                  provider={settings.provider}
-                  model={settings.model}
-                  apiKey={settings.apiKey}
-                  ollamaUrl={settings.ollamaUrl}
-                  temperature={settings.temperature}
-                  onTitleUpdate={handleTitleUpdate}
-                  latestCode={versions.length > 0 ? versions[versions.length - 1].code : undefined}
-                  customSystemPrompt={settings.customSystemPrompt}
-                  maxTokens={settings.maxTokens}
-                  outputFormat={settings.outputFormat}
-                  brandKit={settings.brandKit}
-                  previewTheme={settings.previewTheme}
-                />
-              </div>
+              {!fullscreen && (
+                <div className="w-[38%] min-w-[300px] max-w-[600px] border-r border-border">
+                  <ChatPanel
+                    key={activeSessionId}
+                    sessionId={activeSessionId}
+                    messages={messages}
+                    onStreamComplete={handleStreamComplete}
+                    onStreamStart={handleStreamStart}
+                    provider={settings.provider}
+                    model={settings.model}
+                    apiKey={settings.apiKey}
+                    ollamaUrl={settings.ollamaUrl}
+                    temperature={settings.temperature}
+                    onTitleUpdate={handleTitleUpdate}
+                    latestCode={versions.length > 0 ? versions[versions.length - 1].code : undefined}
+                    customSystemPrompt={settings.customSystemPrompt}
+                    maxTokens={settings.maxTokens}
+                    outputFormat={settings.outputFormat}
+                    brandKit={settings.brandKit}
+                    previewTheme={settings.previewTheme}
+                  />
+                </div>
+              )}
               <div className="flex-1 min-w-0">
                 <PreviewPanel
                   versions={versions}
@@ -401,6 +429,8 @@ export default function Home() {
                   onRestoreVersion={handleRestoreVersion}
                   previewTheme={settings.previewTheme}
                   onPreviewThemeChange={(id) => setSettings({ ...settings, previewTheme: id })}
+                  fullscreen={fullscreen}
+                  onToggleFullscreen={() => setFullscreen((prev) => !prev)}
                 />
               </div>
             </div>

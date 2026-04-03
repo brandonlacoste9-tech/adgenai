@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { X, Sliders, ChevronDown, ExternalLink, Server, Key, Info, RotateCcw } from "lucide-react";
 import type { AppSettings, AIProvider, BrandKit } from "@/lib/types";
-import { PROVIDER_INFO, PROVIDER_MODELS, DEFAULT_SETTINGS } from "@/lib/types";
+import { PROVIDER_INFO, PROVIDER_MODELS, DEFAULT_SETTINGS, APP_THEMES } from "@/lib/types";
 import { SYSTEM_PROMPT } from "@/lib/ai";
 
 interface SettingsDialogProps {
@@ -277,20 +277,25 @@ export function SettingsDialog({ open, onClose, settings, onSettingsChange }: Se
           {/* ═══ Generation Tab ═══ */}
           {activeTab === "generation" && (
             <>
-              {/* Theme */}
+              {/* App Theme */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Theme</label>
-                <div className="flex gap-2">
-                  {(["dark", "light", "system"] as const).map((t) => (
+                <label className="text-sm font-medium text-foreground">App Theme</label>
+                <div className="grid grid-cols-5 gap-2">
+                  {APP_THEMES.map((t) => (
                     <button
-                      key={t}
-                      onClick={() => setLocal({ ...local, theme: t })}
+                      key={t.id}
+                      onClick={() => setLocal({ ...local, appTheme: t.id })}
                       className={cn(
-                        "flex-1 px-3 py-2 rounded-lg border text-xs font-medium transition-colors capitalize",
-                        local.theme === t ? "border-foreground bg-accent text-foreground" : "border-border text-muted-foreground hover:bg-accent"
+                        "flex flex-col items-center gap-1.5 px-2 py-2.5 rounded-lg border transition-colors",
+                        local.appTheme === t.id ? "border-foreground bg-accent" : "border-border hover:bg-accent/50"
                       )}
                     >
-                      {t}
+                      <div className="flex w-full h-5 rounded overflow-hidden border border-border/50">
+                        <div className="flex-1" style={{ background: t.background }} />
+                        <div className="flex-1" style={{ background: t.card }} />
+                        <div className="flex-1" style={{ background: t.accent }} />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground leading-tight text-center">{t.name}</span>
                     </button>
                   ))}
                 </div>

@@ -58,20 +58,20 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: var(--scroll-thumb, #333);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: var(--scroll-thumb-hover, #444);
 }
 
 /* Code token colors */
-.token-keyword { color: #c084fc; }
-.token-string { color: #34d399; }
-.token-comment { color: #6b7280; font-style: italic; }
-.token-tag { color: #60a5fa; }
-.token-function { color: #fbbf24; }
-.token-number { color: #f97316; }
+.token-keyword { color: var(--token-keyword, #c084fc); }
+.token-string { color: var(--token-string, #34d399); }
+.token-comment { color: var(--token-comment, #6b7280); font-style: italic; }
+.token-tag { color: var(--token-tag, #60a5fa); }
+.token-function { color: var(--token-function, #fbbf24); }
+.token-number { color: var(--token-number, #f97316); }
 
 /* Textarea reset */
 textarea {

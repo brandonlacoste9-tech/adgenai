@@ -23,6 +23,8 @@ import {
   Eye,
   Rocket,
   ChevronDown,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 
@@ -48,6 +50,8 @@ interface PreviewPanelProps {
   onRestoreVersion?: (index: number) => void;
   previewTheme: string;
   onPreviewThemeChange: (themeId: string) => void;
+  fullscreen?: boolean;
+  onToggleFullscreen?: () => void;
 }
 
 function buildIframeContent(code: string, theme: PreviewTheme): string {
@@ -171,6 +175,8 @@ export function PreviewPanel({
   onRestoreVersion,
   previewTheme,
   onPreviewThemeChange,
+  fullscreen,
+  onToggleFullscreen,
 }: PreviewPanelProps) {
   const [activeTab, setActiveTab] = useState<Tab>("preview");
   const [copied, setCopied] = useState(false);
@@ -241,7 +247,7 @@ export function PreviewPanel({
   }
 
   return (
-    <div className="flex flex-col h-full bg-background border-l border-border">
+    <div className={cn("flex flex-col bg-background", fullscreen ? "h-screen" : "h-full border-l border-border")}>
       {/* Toolbar */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-border shrink-0 flex-wrap">
         {/* Tab switcher */}
@@ -409,6 +415,11 @@ export function PreviewPanel({
           <button onClick={handleRefresh} className="w-7 h-7 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title="Refresh">
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
+          {onToggleFullscreen && (
+            <button onClick={onToggleFullscreen} className="w-7 h-7 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title={fullscreen ? "Exit fullscreen (Esc)" : "Fullscreen (F)"}>
+              {fullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+            </button>
+          )}
         </div>
       </div>
 

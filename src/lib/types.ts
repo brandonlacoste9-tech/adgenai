@@ -101,6 +101,174 @@ export const PREVIEW_THEMES: PreviewTheme[] = [
   },
 ];
 
+// ─── App Theme Types ───────────────────────────────────────
+
+export interface AppTheme {
+  id: string;
+  name: string;
+  background: string;
+  foreground: string;
+  card: string;
+  cardForeground: string;
+  border: string;
+  muted: string;
+  mutedForeground: string;
+  accent: string;
+  accentForeground: string;
+  primary: string;
+  primaryForeground: string;
+  ring: string;
+  destructive: string;
+  destructiveForeground: string;
+  emerald: string;
+  scrollThumb: string;
+  scrollThumbHover: string;
+  tokenKeyword: string;
+  tokenString: string;
+  tokenComment: string;
+  tokenTag: string;
+  tokenFunction: string;
+  tokenNumber: string;
+}
+
+export const APP_THEMES: AppTheme[] = [
+  {
+    id: "black-dark",
+    name: "Black Dark",
+    background: "#0a0a0a",
+    foreground: "#f2f2f2",
+    card: "#141414",
+    cardForeground: "#f2f2f2",
+    border: "#2a2a2a",
+    muted: "#1e1e1e",
+    mutedForeground: "#6b6b6b",
+    accent: "#1e1e1e",
+    accentForeground: "#f2f2f2",
+    primary: "#f2f2f2",
+    primaryForeground: "#0a0a0a",
+    ring: "#404040",
+    destructive: "#ef4444",
+    destructiveForeground: "#f2f2f2",
+    emerald: "#10b981",
+    scrollThumb: "#333",
+    scrollThumbHover: "#444",
+    tokenKeyword: "#c084fc",
+    tokenString: "#34d399",
+    tokenComment: "#6b7280",
+    tokenTag: "#60a5fa",
+    tokenFunction: "#fbbf24",
+    tokenNumber: "#f97316",
+  },
+  {
+    id: "brown-dark",
+    name: "Brown Dark",
+    background: "#1a1412",
+    foreground: "#f0e6dc",
+    card: "#241c18",
+    cardForeground: "#f0e6dc",
+    border: "#3d2e24",
+    muted: "#2a2018",
+    mutedForeground: "#8b7b6b",
+    accent: "#2a2018",
+    accentForeground: "#f0e6dc",
+    primary: "#f0e6dc",
+    primaryForeground: "#1a1412",
+    ring: "#5a4535",
+    destructive: "#ef4444",
+    destructiveForeground: "#f0e6dc",
+    emerald: "#10b981",
+    scrollThumb: "#3d2e24",
+    scrollThumbHover: "#5a4535",
+    tokenKeyword: "#d4a574",
+    tokenString: "#7dcea0",
+    tokenComment: "#8b7b6b",
+    tokenTag: "#8ab4f8",
+    tokenFunction: "#e8c170",
+    tokenNumber: "#f0a050",
+  },
+  {
+    id: "pure-white",
+    name: "Pure White",
+    background: "#ffffff",
+    foreground: "#111827",
+    card: "#ffffff",
+    cardForeground: "#111827",
+    border: "#e5e7eb",
+    muted: "#f9fafb",
+    mutedForeground: "#6b7280",
+    accent: "#f3f4f6",
+    accentForeground: "#111827",
+    primary: "#111827",
+    primaryForeground: "#ffffff",
+    ring: "#d1d5db",
+    destructive: "#dc2626",
+    destructiveForeground: "#ffffff",
+    emerald: "#059669",
+    scrollThumb: "#d1d5db",
+    scrollThumbHover: "#9ca3af",
+    tokenKeyword: "#7c3aed",
+    tokenString: "#059669",
+    tokenComment: "#9ca3af",
+    tokenTag: "#2563eb",
+    tokenFunction: "#d97706",
+    tokenNumber: "#ea580c",
+  },
+  {
+    id: "soft-gray",
+    name: "Soft Gray",
+    background: "#f4f5f7",
+    foreground: "#1a1a2e",
+    card: "#ffffff",
+    cardForeground: "#1a1a2e",
+    border: "#e2e4e9",
+    muted: "#eceef1",
+    mutedForeground: "#64748b",
+    accent: "#e8eaed",
+    accentForeground: "#1a1a2e",
+    primary: "#334155",
+    primaryForeground: "#ffffff",
+    ring: "#cbd5e1",
+    destructive: "#dc2626",
+    destructiveForeground: "#ffffff",
+    emerald: "#059669",
+    scrollThumb: "#cbd5e1",
+    scrollThumbHover: "#94a3b8",
+    tokenKeyword: "#7c3aed",
+    tokenString: "#059669",
+    tokenComment: "#94a3b8",
+    tokenTag: "#2563eb",
+    tokenFunction: "#d97706",
+    tokenNumber: "#ea580c",
+  },
+  {
+    id: "warm-cream",
+    name: "Warm Cream",
+    background: "#faf7f2",
+    foreground: "#292524",
+    card: "#ffffff",
+    cardForeground: "#292524",
+    border: "#e7e2db",
+    muted: "#f5f0e8",
+    mutedForeground: "#78716c",
+    accent: "#ede8e0",
+    accentForeground: "#292524",
+    primary: "#78350f",
+    primaryForeground: "#ffffff",
+    ring: "#d6cfc4",
+    destructive: "#dc2626",
+    destructiveForeground: "#ffffff",
+    emerald: "#059669",
+    scrollThumb: "#d6cfc4",
+    scrollThumbHover: "#a8a29e",
+    tokenKeyword: "#92400e",
+    tokenString: "#047857",
+    tokenComment: "#a8a29e",
+    tokenTag: "#1d4ed8",
+    tokenFunction: "#b45309",
+    tokenNumber: "#c2410c",
+  },
+];
+
 // ─── AI Provider Types ──────────────────────────────────────
 
 export type AIProvider = "groq" | "deepseek" | "ollama" | "openai" | "anthropic";
@@ -131,7 +299,7 @@ export interface AppSettings {
   ollamaUrl: string;
   temperature: number;
   sidebarCollapsed: boolean;
-  theme: "dark" | "light" | "system";
+  appTheme: string;
   customSystemPrompt: string;
   maxTokens: number;
   outputFormat: "tsx" | "jsx" | "html";
@@ -146,7 +314,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   ollamaUrl: "http://localhost:11434",
   temperature: 0.7,
   sidebarCollapsed: false,
-  theme: "dark",
+  appTheme: "black-dark",
   customSystemPrompt: "",
   maxTokens: 4096,
   outputFormat: "tsx",
