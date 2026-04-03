@@ -66,6 +66,17 @@ export async function POST(req: Request) {
             "https://api.groq.com/openai/v1/chat/completions",
             key, model, chatMessages, temperature, send
           );
+        } else if (provider === "deepseek") {
+          const key = apiKey || process.env.DEEPSEEK_API_KEY || "";
+          if (!key) {
+            send({ type: "error", error: "No DeepSeek API key. Add one in Settings or set DEEPSEEK_API_KEY env var." });
+            controller.close();
+            return;
+          }
+          fullResponse = await streamOpenAICompatible(
+            "https://api.deepseek.com/chat/completions",
+            key, model, chatMessages, temperature, send
+          );
         } else if (provider === "openai") {
           const key = apiKey || process.env.OPENAI_API_KEY || "";
           if (!key) {

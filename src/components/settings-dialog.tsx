@@ -13,7 +13,7 @@ interface SettingsDialogProps {
   onSettingsChange: (settings: AppSettings) => void;
 }
 
-const PROVIDER_ORDER: AIProvider[] = ["groq", "ollama", "openai", "anthropic"];
+const PROVIDER_ORDER: AIProvider[] = ["groq", "deepseek", "ollama", "openai", "anthropic"];
 
 export function SettingsDialog({ open, onClose, settings, onSettingsChange }: SettingsDialogProps) {
   const [local, setLocal] = useState(settings);
@@ -109,7 +109,7 @@ export function SettingsDialog({ open, onClose, settings, onSettingsChange }: Se
                   {providerInfo.keyHint}
                 </p>
               )}
-              {local.provider === "groq" && (
+              {(local.provider === "groq" || local.provider === "deepseek") && (
                 <p className="text-[11px] text-muted-foreground">
                   Optional — falls back to server-side key if left empty.
                 </p>

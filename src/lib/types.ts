@@ -42,12 +42,12 @@ export interface GitHubRepo {
 
 // ─── AI Provider Types ──────────────────────────────────────
 
-export type AIProvider = "groq" | "ollama" | "openai" | "anthropic";
+export type AIProvider = "groq" | "deepseek" | "ollama" | "openai" | "anthropic";
 
 export interface ProviderConfig {
   provider: AIProvider;
   model: string;
-  apiKey?: string;        // For BYOK (OpenAI, Anthropic, Groq)
+  apiKey?: string;        // For BYOK (OpenAI, Anthropic, Groq, DeepSeek)
   ollamaUrl?: string;     // Custom Ollama endpoint
   temperature: number;
 }
@@ -92,6 +92,13 @@ export const PROVIDER_INFO: Record<AIProvider, {
     keyPlaceholder: "gsk_...",
     keyHint: "Get a free key at console.groq.com",
   },
+  deepseek: {
+    name: "DeepSeek",
+    description: "DeepSeek V3 & Coder — powerful and very affordable",
+    requiresKey: true,
+    keyPlaceholder: "sk-...",
+    keyHint: "Get a key at platform.deepseek.com",
+  },
   ollama: {
     name: "Ollama (Local)",
     description: "Run models on your own machine — completely free, private",
@@ -119,6 +126,11 @@ export const PROVIDER_MODELS: Record<AIProvider, ModelOption[]> = {
     { value: "llama-3.1-8b-instant", label: "Llama 3.1 8B", description: "Ultra fast, good for simple components" },
     { value: "mixtral-8x7b-32768", label: "Mixtral 8x7B", description: "Strong MoE model, 32K context" },
     { value: "gemma2-9b-it", label: "Gemma 2 9B", description: "Google's efficient model" },
+  ],
+  deepseek: [
+    { value: "deepseek-chat", label: "DeepSeek V3", description: "Best quality, very affordable" },
+    { value: "deepseek-coder", label: "DeepSeek Coder", description: "Optimized for code generation" },
+    { value: "deepseek-reasoner", label: "DeepSeek R1", description: "Chain-of-thought reasoning model" },
   ],
   ollama: [
     { value: "qwen2.5-coder:7b", label: "Qwen 2.5 Coder 7B", description: "Best code model for 8GB VRAM" },
