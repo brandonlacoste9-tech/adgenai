@@ -40,27 +40,106 @@ export interface GitHubRepo {
   url: string;
 }
 
-export interface AppSettings {
+// ─── AI Provider Types ──────────────────────────────────────
+
+export type AIProvider = "groq" | "ollama" | "openai" | "anthropic";
+
+export interface ProviderConfig {
+  provider: AIProvider;
   model: string;
+  apiKey?: string;        // For BYOK (OpenAI, Anthropic, Groq)
+  ollamaUrl?: string;     // Custom Ollama endpoint
+  temperature: number;
+}
+
+export interface AppSettings {
+  provider: AIProvider;
+  model: string;
+  apiKey: string;
+  ollamaUrl: string;
   temperature: number;
   sidebarCollapsed: boolean;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  model: "claude-sonnet",
+  provider: "groq",
+  model: "llama-3.3-70b-versatile",
+  apiKey: "",
+  ollamaUrl: "http://localhost:11434",
   temperature: 0.7,
   sidebarCollapsed: false,
 };
 
-export const MODELS = [
-  { value: "claude-sonnet", label: "Claude Sonnet 4.6", description: "Balanced speed and quality" },
-  { value: "claude-haiku", label: "Claude Haiku 4.5", description: "Fast and efficient" },
-  { value: "claude-opus", label: "Claude Opus 4.6", description: "Most capable" },
-  { value: "gpt-5-mini", label: "GPT-5 Mini", description: "Fast, affordable" },
-  { value: "gpt-5", label: "GPT-5", description: "Most powerful GPT" },
-  { value: "gemini-flash", label: "Gemini 3 Flash", description: "Ultra fast" },
-  { value: "gemini-pro", label: "Gemini 3.1 Pro", description: "High quality" },
-] as const;
+// ─── Provider Model Lists ───────────────────────────────────
+
+export interface ModelOption {
+  value: string;
+  label: string;
+  description: string;
+}
+
+export const PROVIDER_INFO: Record<AIProvider, {
+  name: string;
+  description: string;
+  requiresKey: boolean;
+  keyPlaceholder?: string;
+  keyHint?: string;
+}> = {
+  groq: {
+    name: "Groq",
+    description: "Free tier — fast inference, no cost for light usage",
+    requiresKey: true,
+    keyPlaceholder: "gsk_...",
+    keyHint: "Get a free key at console.groq.com",
+  },
+  ollama: {
+    name: "Ollama (Local)",
+    description: "Run models on your own machine — completely free, private",
+    requiresKey: false,
+  },
+  openai: {
+    name: "OpenAI",
+    description: "GPT-4o, GPT-4o-mini — bring your own API key",
+    requiresKey: true,
+    keyPlaceholder: "sk-...",
+    keyHint: "Get a key at platform.openai.com",
+  },
+  anthropic: {
+    name: "Anthropic",
+    description: "Claude Sonnet, Opus, Haiku — bring your own API key",
+    requiresKey: true,
+    keyPlaceholder: "sk-ant-...",
+    keyHint: "Get a key at console.anthropic.com",
+  },
+};
+
+export const PROVIDER_MODELS: Record<AIProvider, ModelOption[]> = {
+  groq: [
+    { value: "llama-3.3-70b-versatile", label: "Llama 3.3 70B", description: "Best quality, free tier" },
+    { value: "llama-3.1-8b-instant", label: "Llama 3.1 8B", description: "Ultra fast, good for simple components" },
+    { value: "mixtral-8x7b-32768", label: "Mixtral 8x7B", description: "Strong MoE model, 32K context" },
+    { value: "gemma2-9b-it", label: "Gemma 2 9B", description: "Google's efficient model" },
+  ],
+  ollama: [
+    { value: "qwen2.5-coder:7b", label: "Qwen 2.5 Coder 7B", description: "Best code model for 8GB VRAM" },
+    { value: "deepseek-coder-v2:latest", label: "DeepSeek Coder V2", description: "Strong coding model" },
+    { value: "codellama:7b", label: "CodeLlama 7B", description: "Meta's code model" },
+    { value: "llama3.1:8b", label: "Llama 3.1 8B", description: "General purpose, good at code" },
+    { value: "mistral:7b", label: "Mistral 7B", description: "Fast and capable" },
+  ],
+  openai: [
+    { value: "gpt-4o-mini", label: "GPT-4o Mini", description: "Cheap and fast, good for most tasks" },
+    { value: "gpt-4o", label: "GPT-4o", description: "Most capable, higher cost" },
+    { value: "gpt-4-turbo", label: "GPT-4 Turbo", description: "128K context, strong coding" },
+  ],
+  anthropic: [
+    { value: "claude-sonnet-4-20250514", label: "Claude Sonnet 4", description: "Best balance of speed and quality" },
+    { value: "claude-haiku-4-20250514", label: "Claude Haiku 4", description: "Fast and affordable" },
+    { value: "claude-opus-4-20250514", label: "Claude Opus 4", description: "Most capable" },
+  ],
+};
+
+// ─── Prompt Templates ───────────────────────────────────────
 
 export const PROMPT_TEMPLATES = [
   { label: "Landing Page", prompt: "Build a modern SaaS landing page with hero section, features grid, pricing cards, and footer", icon: "layout" },

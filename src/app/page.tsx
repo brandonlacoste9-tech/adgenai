@@ -276,7 +276,10 @@ export default function Home() {
                   messages={messages}
                   onStreamComplete={handleStreamComplete}
                   onStreamStart={handleStreamStart}
+                  provider={settings.provider}
                   model={settings.model}
+                  apiKey={settings.apiKey}
+                  ollamaUrl={settings.ollamaUrl}
                   temperature={settings.temperature}
                   onTitleUpdate={handleTitleUpdate}
                 />
@@ -303,7 +306,10 @@ export default function Home() {
                   messages={[]}
                   onStreamComplete={handleStreamComplete}
                   onStreamStart={handleStreamStart}
+                  provider={settings.provider}
                   model={settings.model}
+                  apiKey={settings.apiKey}
+                  ollamaUrl={settings.ollamaUrl}
                   temperature={settings.temperature}
                   onTitleUpdate={handleTitleUpdate}
                   onNewSession={handleNewSessionForLanding}

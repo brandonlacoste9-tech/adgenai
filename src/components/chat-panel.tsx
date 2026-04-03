@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { streamChat } from "@/lib/api-client";
-import type { Message } from "@/lib/types";
+import type { Message, AIProvider } from "@/lib/types";
 import { PROMPT_TEMPLATES } from "@/lib/types";
 import {
   Send,
@@ -34,7 +34,10 @@ const TEMPLATE_ICONS: Record<string, React.ComponentType<{ className?: string }>
 interface ChatPanelProps {
   sessionId: string | null;
   messages: Message[];
+  provider: AIProvider;
   model: string;
+  apiKey: string;
+  ollamaUrl: string;
   temperature: number;
   isLanding?: boolean;
   onStreamStart: () => void;
@@ -47,7 +50,10 @@ interface ChatPanelProps {
 export function ChatPanel({
   sessionId,
   messages,
+  provider,
   model,
+  apiKey,
+  ollamaUrl,
   temperature,
   isLanding,
   onStreamStart,
@@ -87,7 +93,10 @@ export function ChatPanel({
       abortRef.current = streamChat(
         sid,
         msg,
+        provider,
         model,
+        apiKey,
+        ollamaUrl,
         temperature,
         (delta) => {
           fullText += delta;
@@ -106,7 +115,7 @@ export function ChatPanel({
         }
       );
     },
-    [input, isStreaming, sessionId, model, temperature, onStreamStart, onStreamComplete, onTitleUpdate, onNewSession]
+    [input, isStreaming, sessionId, provider, model, apiKey, ollamaUrl, temperature, onStreamStart, onStreamComplete, onTitleUpdate, onNewSession]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

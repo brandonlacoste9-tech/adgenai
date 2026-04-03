@@ -1,4 +1,4 @@
-import type { Session, Message, CodeVersion, GitHubStatus, GitHubRepo } from "./types";
+import type { Session, Message, CodeVersion, GitHubStatus, GitHubRepo, AIProvider } from "./types";
 
 async function api(method: string, url: string, body?: unknown) {
   const res = await fetch(url, {
@@ -95,7 +95,10 @@ export async function pushToExistingRepo(data: {
 export function streamChat(
   sessionId: string,
   message: string,
+  provider: AIProvider,
   model: string,
+  apiKey: string,
+  ollamaUrl: string,
   temperature: number,
   onDelta: (text: string) => void,
   onTitle?: (title: string) => void,
@@ -109,7 +112,7 @@ export function streamChat(
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, message, model, temperature }),
+        body: JSON.stringify({ sessionId, message, provider, model, apiKey: apiKey || undefined, ollamaUrl, temperature }),
         signal: controller.signal,
       });
 

@@ -1,12 +1,31 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { storage } from "@/lib/storage";
-import { SYSTEM_PROMPT, MODEL_MAP } from "@/lib/ai";
+import { SYSTEM_PROMPT } from "@/lib/ai";
+import type { AIProvider } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
+interface ChatRequest {
+  sessionId: string;
+  message: string;
+  provider: AIProvider;
+  model: string;
+  apiKey?: string;
+  ollamaUrl?: string;
+  temperature?: number;
+}
+
 export async function POST(req: Request) {
-  const { sessionId, message, model = "claude-sonnet", temperature = 0.7 } = await req.json();
+  const body: ChatRequest = await req.json();
+  const {
+    sessionId,
+    message,
+    provider = "groq",
+    model,
+    apiKey,
+    ollamaUrl = "http://localhost:11434",
+    temperature = 0.7,
+  } = body;
 
   if (!sessionId || !message) {
     return new Response(JSON.stringify({ error: "sessionId and message required" }), {
@@ -16,68 +35,76 @@ export async function POST(req: Request) {
   }
 
   // Save user message
-  storage.createMessage({
-    id: crypto.randomUUID(),
-    sessionId,
-    role: "user",
-    content: message,
-  });
+  storage.createMessage({ id: crypto.randomUUID(), sessionId, role: "user", content: message });
 
   // Get conversation history
   const history = storage.getMessages(sessionId);
-  const apiMessages = history.map((m) => ({
-    role: m.role as "user" | "assistant",
-    content: m.content,
-  }));
+  const chatMessages = history.map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
 
-  const resolvedModel = MODEL_MAP[model] || "claude_sonnet_4_6";
-
-  const client = new Anthropic();
-
-  // Stream with SSE
   const encoder = new TextEncoder();
+
   const stream = new ReadableStream({
     async start(controller) {
       let fullResponse = "";
 
-      try {
-        const anthropicStream = await client.messages.stream({
-          model: resolvedModel,
-          max_tokens: 4096,
-          temperature: Math.min(temperature, 1.0),
-          system: SYSTEM_PROMPT,
-          messages: apiMessages,
-        });
+      const send = (data: object) => {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
+      };
 
-        for await (const event of anthropicStream) {
-          if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
-            const text = event.delta.text;
-            fullResponse += text;
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "delta", text })}\n\n`));
+      try {
+        // Route to the correct provider
+        if (provider === "ollama") {
+          fullResponse = await streamOllama(ollamaUrl, model, chatMessages, temperature, send);
+        } else if (provider === "groq") {
+          const key = apiKey || process.env.GROQ_API_KEY || "";
+          if (!key) {
+            send({ type: "error", error: "No Groq API key. Add one in Settings or set GROQ_API_KEY env var." });
+            controller.close();
+            return;
           }
+          fullResponse = await streamOpenAICompatible(
+            "https://api.groq.com/openai/v1/chat/completions",
+            key, model, chatMessages, temperature, send
+          );
+        } else if (provider === "openai") {
+          const key = apiKey || process.env.OPENAI_API_KEY || "";
+          if (!key) {
+            send({ type: "error", error: "No OpenAI API key. Add one in Settings." });
+            controller.close();
+            return;
+          }
+          fullResponse = await streamOpenAICompatible(
+            "https://api.openai.com/v1/chat/completions",
+            key, model, chatMessages, temperature, send
+          );
+        } else if (provider === "anthropic") {
+          const key = apiKey || process.env.ANTHROPIC_API_KEY || "";
+          if (!key) {
+            send({ type: "error", error: "No Anthropic API key. Add one in Settings." });
+            controller.close();
+            return;
+          }
+          fullResponse = await streamAnthropic(key, model, chatMessages, temperature, send);
         }
 
         // Save assistant message
-        storage.createMessage({
-          id: crypto.randomUUID(),
-          sessionId,
-          role: "assistant",
-          content: fullResponse,
-        });
+        if (fullResponse) {
+          storage.createMessage({ id: crypto.randomUUID(), sessionId, role: "assistant", content: fullResponse });
+        }
 
         // Auto-update title
         const session = storage.getSession(sessionId);
         if (session && session.title === "New chat") {
           const title = message.slice(0, 50) + (message.length > 50 ? "..." : "");
           storage.updateSession(sessionId, { title });
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "title", title })}\n\n`));
+          send({ type: "title", title });
         }
 
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`));
+        send({ type: "done" });
       } catch (err: unknown) {
-        const errorMessage = err instanceof Error ? err.message : "Generation failed";
+        const msg = err instanceof Error ? err.message : "Generation failed";
         console.error("Chat error:", err);
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "error", error: errorMessage })}\n\n`));
+        send({ type: "error", error: msg });
       } finally {
         controller.close();
       }
@@ -85,10 +112,191 @@ export async function POST(req: Request) {
   });
 
   return new Response(stream, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    },
+    headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" },
   });
+}
+
+// ─── Ollama (local) ─────────────────────────────────────────
+
+async function streamOllama(
+  baseUrl: string,
+  model: string,
+  messages: { role: string; content: string }[],
+  temperature: number,
+  send: (data: object) => void
+): Promise<string> {
+  const res = await fetch(`${baseUrl}/api/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      stream: true,
+      options: { temperature },
+    }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Ollama error (${res.status}): ${text}. Make sure Ollama is running and the model is pulled.`);
+  }
+
+  let fullResponse = "";
+  const reader = res.body?.getReader();
+  if (!reader) throw new Error("No response body from Ollama");
+
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
+
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      try {
+        const parsed = JSON.parse(line) as { message?: { content?: string }; done?: boolean };
+        if (parsed.message?.content) {
+          fullResponse += parsed.message.content;
+          send({ type: "delta", text: parsed.message.content });
+        }
+      } catch {
+        // skip malformed lines
+      }
+    }
+  }
+
+  return fullResponse;
+}
+
+// ─── OpenAI-compatible (Groq, OpenAI) ───────────────────────
+
+async function streamOpenAICompatible(
+  endpoint: string,
+  apiKey: string,
+  model: string,
+  messages: { role: string; content: string }[],
+  temperature: number,
+  send: (data: object) => void
+): Promise<string> {
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      temperature,
+      max_tokens: 4096,
+      stream: true,
+    }),
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`API error (${res.status}): ${errBody}`);
+  }
+
+  let fullResponse = "";
+  const reader = res.body?.getReader();
+  if (!reader) throw new Error("No response body");
+
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
+
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const data = line.slice(6).trim();
+      if (data === "[DONE]") continue;
+      try {
+        const parsed = JSON.parse(data) as { choices?: Array<{ delta?: { content?: string } }> };
+        const content = parsed.choices?.[0]?.delta?.content;
+        if (content) {
+          fullResponse += content;
+          send({ type: "delta", text: content });
+        }
+      } catch {
+        // skip malformed
+      }
+    }
+  }
+
+  return fullResponse;
+}
+
+// ─── Anthropic ──────────────────────────────────────────────
+
+async function streamAnthropic(
+  apiKey: string,
+  model: string,
+  messages: { role: string; content: string }[],
+  temperature: number,
+  send: (data: object) => void
+): Promise<string> {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: 4096,
+      temperature: Math.min(temperature, 1.0),
+      system: SYSTEM_PROMPT,
+      messages,
+      stream: true,
+    }),
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Anthropic error (${res.status}): ${errBody}`);
+  }
+
+  let fullResponse = "";
+  const reader = res.body?.getReader();
+  if (!reader) throw new Error("No response body");
+
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
+
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      try {
+        const parsed = JSON.parse(line.slice(6)) as { type?: string; delta?: { type?: string; text?: string } };
+        if (parsed.type === "content_block_delta" && parsed.delta?.type === "text_delta" && parsed.delta.text) {
+          fullResponse += parsed.delta.text;
+          send({ type: "delta", text: parsed.delta.text });
+        }
+      } catch {
+        // skip
+      }
+    }
+  }
+
+  return fullResponse;
 }
