@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { storage } from "@/lib/storage";
+import { getGitHubToken } from "@/lib/github-token";
 
 export async function POST(req: Request) {
-  const token = storage.getGitHubToken();
+  const token = await getGitHubToken();
   if (!token) return NextResponse.json({ error: "Not connected" }, { status: 401 });
 
   const { repoFullName, code, fileName, commitMessage } = await req.json();

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { storage } from "@/lib/storage";
+import { clearGitHubToken } from "@/lib/github-token";
 
 export async function DELETE() {
-  storage.clearGitHubToken();
+  await clearGitHubToken();
   return NextResponse.json({ ok: true });
 }

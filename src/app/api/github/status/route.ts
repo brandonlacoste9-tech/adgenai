@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { storage } from "@/lib/storage";
+import { getGitHubToken } from "@/lib/github-token";
 
 export async function GET() {
-  const token = storage.getGitHubToken();
+  const token = await getGitHubToken();
   if (token) {
     return NextResponse.json({ connected: true, username: token.username, avatarUrl: token.avatarUrl });
   }

@@ -1,4 +1,4 @@
-import { storage } from "@/lib/storage";
+import { setGitHubToken } from "@/lib/github-token";
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -28,13 +28,11 @@ export async function GET(req: Request) {
     });
     const userData = (await userRes.json()) as { login: string; avatar_url: string };
 
-    // Store token
-    storage.setGitHubToken({
-      id: "default",
+    // Store token in encrypted cookie
+    await setGitHubToken({
       accessToken: tokenData.access_token,
       username: userData.login,
       avatarUrl: userData.avatar_url,
-      createdAt: new Date().toISOString(),
     });
 
     return new Response(
