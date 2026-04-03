@@ -180,15 +180,6 @@ export default function Home() {
     }
   }, []);
 
-  const handleCodeEdit = useCallback((versionId: string, code: string) => {
-    const sid = activeSessionIdRef.current;
-    if (sid) {
-      apiUpdateVersion(sid, versionId, code).then(() => {
-        fetchVersions(sid).then(setVersions).catch(console.error);
-      });
-    }
-  }, []);
-
   // Restore an older version as a new version
   const handleRestoreVersion = useCallback((index: number) => {
     const sid = activeSessionIdRef.current;
@@ -199,6 +190,15 @@ export default function Home() {
       fetchVersions(sid).then(setVersions).catch(console.error);
     });
   }, [versions]);
+
+  const handleCodeEdit = useCallback((versionId: string, code: string) => {
+    const sid = activeSessionIdRef.current;
+    if (sid) {
+      apiUpdateVersion(sid, versionId, code).then(() => {
+        fetchVersions(sid).then(setVersions).catch(console.error);
+      });
+    }
+  }, []);
 
   // Download as ZIP
   const handleDownloadZip = useCallback(async () => {

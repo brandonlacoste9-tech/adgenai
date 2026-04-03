@@ -230,7 +230,7 @@ async function streamOpenAICompatible(
   messages: { role: string; content: string }[],
   temperature: number,
   send: (data: object) => void,
-  maxTokens: number = 4096,
+  maxTok: number = 4096,
   sysPrompt: string = SYSTEM_PROMPT,
 ): Promise<string> {
   const res = await fetch(endpoint, {
@@ -243,7 +243,7 @@ async function streamOpenAICompatible(
       model,
       messages: [{ role: "system", content: sysPrompt }, ...messages],
       temperature,
-      max_tokens: maxTokens,
+      max_tokens: maxTok,
       stream: true,
     }),
   });
@@ -296,7 +296,7 @@ async function streamAnthropic(
   messages: { role: string; content: string }[],
   temperature: number,
   send: (data: object) => void,
-  maxTokens: number = 4096,
+  maxTok: number = 4096,
   sysPrompt: string = SYSTEM_PROMPT,
 ): Promise<string> {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -308,7 +308,7 @@ async function streamAnthropic(
     },
     body: JSON.stringify({
       model,
-      max_tokens: maxTokens,
+      max_tokens: maxTok,
       temperature: Math.min(temperature, 1.0),
       system: sysPrompt,
       messages,
